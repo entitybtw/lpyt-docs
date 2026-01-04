@@ -128,12 +128,8 @@ LuaPlayerYT 0.5 beta 3 — документация основаная на LuaP
   
 <details id="buttons">
 <summary data-i18n="docs.buttons">buttons — Кнопки</summary>
-
 <table>
-<tr>
-<th data-i18n="docs.name">Имя</th>
-<th data-i18n="docs.value">Значение</th>
-</tr>
+<tr><th data-i18n="docs.name">Имя</th><th data-i18n="docs.value">Значение</th></tr>
 <tr><td>buttons.select</td><td>1</td></tr>
 <tr><td>buttons.start</td><td>8</td></tr>
 <tr><td>buttons.up</td><td>16</td></tr>
@@ -148,51 +144,13 @@ LuaPlayerYT 0.5 beta 3 — документация основаная на LuaP
 <tr><td>buttons.square</td><td>32768</td></tr>
 <tr><td>buttons.home</td><td>65536</td></tr>
 </table>
-
-<p>
-<code>buttons.read()</code>
-<span data-i18n="docs.buttons.read">
-считывает состояния кнопок. (желательно вызывать перед вызовом остальных функций для чтения состояния)
-</span>
-</p>
-
-<p>
-<code>buttons.Lx()</code>
-<span data-i18n="docs.buttons.lx">
-считывает позицию стика по X, возвращает целое значение от -128 до 127
-</span>
-</p>
-
-<p>
-<code>buttons.Ly()</code>
-<span data-i18n="docs.buttons.ly">
-считывает позицию стика по Y, возвращает целое значение от -128 до 127
-</span>
-</p>
-
-<p>
-<code>buttons.pressed(button)</code>
-<span data-i18n="docs.buttons.pressed">
-проверка на то, была ли кнопка нажата только что (не зажата!)
-</span>
-</p>
-
-<p>
-<code>buttons.held(button)</code>
-<span data-i18n="docs.buttons.held">
-проверка на то, удерживается ли кнопка в данный момент
-</span>
-</p>
-
-<p>
-<code>buttons.released(button)</code>
-<span data-i18n="docs.buttons.released">
-проверка на то, отпущенна ли кнопка в данный момент
-</span>
-</p>
-
+  <p><code>buttons.read()</code> считывает состояния кнопок. (желательно вызывать перед вызовом остальных функций для чтения состояния)</p>
+<p><code>buttons.Lx()</code> считывает позицию стика по X, возвращает целое значение от -128 до 127</p>
+<p><code>buttons.Ly()</code> считывает позицию стика по Y, возвращает целое значение от -128 до 127</p>
+<p><code>buttons.pressed(button)</code> проверка на то, была ли кнопка нажата только что (не зажата!)</p>
+<p><code>buttons.held(button)</code> проверка на то, удерживается ли кнопка в данный момент</p>
+<p><code>buttons.released(button)</code> проверка на то, отпущенна ли кнопка в данный момент</p>
 </details>
-
 
 <details id="color">
 <summary data-i18n="docs.color">Color — Цвет</summary>
@@ -202,768 +160,151 @@ LuaPlayerYT 0.5 beta 3 — документация основаная на LuaP
 
 <details id="image">
 <summary data-i18n="docs.image">Image — Изображения</summary>
-
 <h3 data-i18n="docs.align">Выравнивание</h3>
 <table>
-<tr>
-<th data-i18n="docs.constant">Константа</th>
-<th data-i18n="docs.value">Значение</th>
-</tr>
-<tr>
-<td>Image.lUp (id: 0)</td>
-<td>
-<span data-i18n="docs.image.align.lUp">положение сверху-слева (по умолчанию)</span>
-</td>
-</tr>
-<tr>
-<td>Image.rUp (id: 1)</td>
-<td>
-<span data-i18n="docs.image.align.rUp">положение сверху-справа</span>
-</td>
-</tr>
-<tr>
-<td>Image.rDn (id: 2)</td>
-<td>
-<span data-i18n="docs.image.align.rDn">положение снизу-справа</span>
-</td>
-</tr>
-<tr>
-<td>Image.lDn (id: 3)</td>
-<td>
-<span data-i18n="docs.image.align.lDn">положение снизу-слева</span>
-</td>
-</tr>
-<tr>
-<td>Image.Center (id: 4)</td>
-<td>
-<span data-i18n="docs.image.align.center">положение по центру</span>
-</td>
-</tr>
+<tr><th data-i18n="docs.constant">Константа</th><th data-i18n="docs.value">Значение</th></tr>
+<tr><td>Image.lUp (id: 0) ; положение сверху-слева (по умолчанию)</td><td>0</td></tr>
+<tr><td>Image.rUp (id: 1) ; положение сверху-справа</td><td>1</td></tr>
+<tr><td>Image.rDn (id: 2) ; положение снизу-справа</td><td>2</td></tr>
+<tr><td>Image.lDn (id: 3) ; положение снизу-слева</td><td>3</td></tr>
+<tr><td>Image.Center (id: 4) ; положение по центру</td><td>4</td></tr>
 </table>
-
 <h3 data-i18n="docs.functions">Функции</h3>
-
-<p>
-<code>Image.load(path)</code>
-<span data-i18n="docs.image.load">
-загрузка изображения в память (path — путь к изображению)
-</span>
-</p>
-
-<p>
-<code>Image.unload(texture)</code>
-<span data-i18n="docs.image.unload">
-выгрузка изображения из памяти (texture — предварительно загруженное изображение)
-</span>
-</p>
-
-<p>
-<code>Image.W(texture)</code>
-<span data-i18n="docs.image.w">
-получение высоты изображения (texture — предварительно загруженное изображение)
-</span>
-</p>
-
-<p>
-<code>Image.H(texture)</code>
-<span data-i18n="docs.image.h">
-получение ширины изображения (texture — предварительно загруженное изображение)
-</span>
-</p>
-
-<p>
-<code>Image.draw(texture, x, y, w, h, color, srcx, srcy, srcw, srch, rotation, alpha, alignMode, GU_LINEAR, GU_REPEAT)</code>
-<span data-i18n="docs.image.draw">
-полная отрисовка изображения (texture — предварительно загруженное изображение, x и y — позиция, w и h — размеры, color — цвет, srcx/srcy — начало области, srcw/srch — конец области)
-</span>
-</p>
-
-<p>
-<code>Image.draweasy(texture, x, y, color, rotation, alpha, alignMode, GU_LINEAR, GU_REPEAT)</code>
-<span data-i18n="docs.image.draweasy">
-упрощённая отрисовка изображения
-</span>
-</p>
-
-<p>
-<code>Image.drawCircleOnTex(texture, x, y, rotation, color)</code>
-<span data-i18n="docs.image.drawCircleOnTex">
-отрисовка окружности на изображении
-</span>
-</p>
-
-<p>
-<code>Image.createPlaceholder()</code>
-<span data-i18n="docs.image.createPlaceholder">
-создаёт «шахматную» текстуру как текстуру-заполнитель
-</span>
-</p>
-
+<p><code>Image.load(path)</code> загрузка изображения в память (path - путь к изображению)</p>
+<p><code>Image.unload(texture)</code> выгрузка изображения из памяти (texture - предварительно загруженное изображение)</p>
+<p><code>Image.W(texture)</code> получение высоты изображения (texture - предварительно загруженное изображение)</p>
+<p><code>Image.H(texture)</code> получение ширины изображения (texture - предварительно загруженное изображение</p>
+<p><code>Image.draw(texture, x, y, w, h, color, srcx, srcy, srcw, srch, rotation, alpha, alignMode, GU_LINEAR, GU_REPEAT)</code> полная отрисовка изображения (texture - предварительно загруженное изображение, x - позиция изображения по X, y - позиция изображения по Y, w - ширина изображения (по умолчанию размер загруженного изображения, h - высота изображения (по умолчанию размер загруженного изображения), color - цвет изображения, srcx и srcy - координаты начала захвата рабочей области изображения (по умолчанию: 0), srcw и srch - координаты окончания захвата рабочей области изображения (по умолчанию: srcw = ширина изображения, srch = высота изображения)</p>
+<p><code>Image.draweasy(texture, x, y, color, rotation, alpha, alignMode, GU_LINEAR, GU_REPEAT)</code></p>
+<p><code>Image.drawCircleOnTex(texture, x, y, rotation, color)</code> отрисовка окружности на изображении</p>
+<p><code>Image.createPlaceholder()</code> создает 'шахматную' текстуру как текстура-заполнитель</p>
 </details>
-
 
 
 
 <details id="intrafont">
 <summary data-i18n="docs.intrafont">intraFont — Шрифты</summary>
-
 <h3 data-i18n="docs.align">Выравнивание</h3>
-
-<p><code>ALIGN_LEFT = 0</code>
-<span data-i18n="docs.intrafont.align.left">слева</span>
-</p>
-
-<p><code>ALIGN_CENTER = 512</code>
-<span data-i18n="docs.intrafont.align.center">по середине</span>
-</p>
-
-<p><code>ALIGN_RIGHT = 1024</code>
-<span data-i18n="docs.intrafont.align.right">справа</span>
-</p>
-
+<p><code>ALIGN_LEFT = 0</code> слева</p>
+<p><code>ALIGN_CENTER = 512</code> по середине</p>
+<p><code>ALIGN_RIGHT = 1024</code> справа</p>
 <h3 data-i18n="docs.scroll">Скроллинг</h3>
-
 <p><code>SCROLL_LEFT = 8192</code></p>
 <p><code>SCROLL_SEESAW = 8704</code></p>
 <p><code>SCROLL_RIGHT = 9216</code></p>
 <p><code>SCROLL_THROUGH = 9728</code></p>
-
 <h3 data-i18n="docs.functions">Функции</h3>
-
-<p>
-<code>intraFont.load(path, size)</code>
-<span data-i18n="docs.intrafont.load">
-загрузка шрифта в ОЗУ в форматах TTF и PGF (path — путь до шрифта, size — размер)
-</span>
-</p>
-
-<p>
-<code>intraFont.setStyle(font, size, color, rotation, align)</code>
-<span data-i18n="docs.intrafont.setStyle">
-задаёт стиль шрифта
-</span>
-</p>
-
-<p>
-<code>intraFont.print(x, y, text, textColor, font, size, rotation, GU_LINEAR, align)</code>
-<span data-i18n="docs.intrafont.print">
-отрисовка текста
-</span>
-</p>
-
-<p>
-<code>intraFont.printBackground(x, y, text, textColor, bgColor, font, size)</code>
-<span data-i18n="docs.intrafont.printBackground">
-отрисовка текста с фоновой заливкой
-</span>
-</p>
-
-<p>
-<code>intraFont.printColumn(x, y, text, width, textColor, font, size, align, scroll)</code>
-<span data-i18n="docs.intrafont.printColumn">
-отрисовка текста колонной
-</span>
-</p>
-
-<p>
-<code>intraFont.printContoured(x, y, text, textColor, contourColor, font, size, rotation)</code>
-<span data-i18n="docs.intrafont.printContoured">
-отрисовка текста с контуром
-</span>
-</p>
-
-<p>
-<code>intraFont.printGradient(x, y, text, textColorStart, textColorEnd, font, size)</code>
-<span data-i18n="docs.intrafont.printGradient">
-отрисовка текста с градиентом
-</span>
-</p>
-
-<p>
-<code>intraFont.printStriked(x, y, text, textColor, lineColor, font, size)</code>
-<span data-i18n="docs.intrafont.printStriked">
-отрисовка перечёркнутого текста
-</span>
-</p>
-
-<p>
-<code>intraFont.printShadowed(x, y, text, textColor, shadowColor, font, shadowRotation, lightDistance, size, rotation)</code>
-<span data-i18n="docs.intrafont.printShadowed">
-отрисовка текста с тенью
-</span>
-</p>
-
-<p>
-<code>intraFont.printUnderlined(x, y, text, textColor, lineColor, font, size)</code>
-<span data-i18n="docs.intrafont.printUnderlined">
-отрисовка подчёркнутого текста
-</span>
-</p>
-
-<p>
-<code>intraFont.reverseText(text)</code>
-<span data-i18n="docs.intrafont.reverseText">
-разворачивает строку задом наперёд
-</span>
-</p>
-
-<p>
-<code>intraFont.size(font, size)</code>
-<span data-i18n="docs.intrafont.size">
-изменение размера шрифта
-</span>
-</p>
-
-<p>
-<code>intraFont.textW(font, text, size)</code>
-<span data-i18n="docs.intrafont.textW">
-вычисление ширины текста в пикселях
-</span>
-</p>
-
-<p>
-<code>intraFont.textH(font)</code>
-<span data-i18n="docs.intrafont.textH">
-вычисление высоты шрифта
-</span>
-</p>
-
-<p>
-<code>intraFont.unload(font)</code>
-<span data-i18n="docs.intrafont.unload">
-выгрузка шрифта из памяти
-</span>
-</p>
-
+<p><code>intraFont.load(path, size)</code> загрузка шрифта в ОЗУ в форматах TTF и PGF(path - путь до шрифта, size - размер шрифта)</p>
+  <p><code>intraFont.setStyle(font, size, color, rotation, align)</code> задает стиль шрифта (font - шрифт, size - размер, color - цвет, rotation - поворот, align - выравнивание)</p>
+<p><code>intraFont.print(x, y, text, textColor, font, size, rotation, GU_LINEAR, align)</code> отрисовка текста (x и y - координаты позиции шрифта, text - выводимый текст, textColor - цвет, font - шрифт, size - размер, GU_LINEAR - режим фильтрации (линейная или отключена), align - выравнивание)</p>
+<p><code>intraFont.printBackground(x, y, text, textColor, bgColor, font, size)</code> отрисовка текста с фоновой заливкой (x и y - координаты позиции шрифта, text - выводимый текст, textColor - цвет текста, bgColor - цвет фоновой заливки, font - шрифт, size - размер)</p>
+<p><code>intraFont.printColumn(x, y, text, width, textColor, font, size, align, scroll)</code> отрисовка текста колонной (x и y - координаты позиции шрифта, text - выводимый текст, width - ширина текста в пикселях, textColor - цвет, font - шрифт, size - размер,align - выравнивание, scroll - скроллинг)</p>
+<p><code>intraFont.printContoured(x, y, text, textColor, contourColor, font, size, rotation)</code> отрисовка текста с контуром (x и y - координаты позиции, text - выводимый текст, textColor - цвет текста, contourColor - цвет контура, font - шрифт, size - размер, rotation - поворот)</p>
+<p><code>intraFont.printGradient(x, y, text, textColorStart, textColorEnd, font, size)</code> отрисовка текста с градиентом (x и y - координаты позиции, text - выводимый текст, textColorStart - начальный цвет, textColorEnd - конечный цвет, font - шрифт, size - размер)</p>
+<p><code>intraFont.printStriked(x, y, text, textColor, lineColor, font, size)</code> отрисовка перечёркнутого текста (x и y - координаты позиции, text - выводимый текст, textColor - цвет текста, lineColor - цвет перечёркивающей линии, font - шрифт, size - размер)</p>
+<p><code>intraFont.printShadowed(x, y, text, textColor, shadowColor, font, shadowRotation, lightDistance, size, rotation)</code> отрисовка текста с тенью (x и y - координаты позиции, text - выводимый текст, textColor - цвет текста, shadowColor - цвет тени, font - шрифт, shadowRotation - угол падения света, lightDistance - расстояние тени, size - размер, rotation - поворот)</p>
+<p><code>intraFont.printUnderlined(x, y, text, textColor, lineColor, font, size)</code> отрисовка подчеркнутого текста (x и y - координаты позиции, text - выводимый текст, textColor - цвет текста, lineColor - цвет линии, font - шрифт, size - размер)</p>
+<p><code>intraFont.reverseText(text)</code> разворачивает строку задом наперёд (text - исходный текст)</p>
+<p><code>intraFont.size(font, size)</code> изменение размера шрифта (font - шрифт, size - новый размер)</p>
+<p><code>intraFont.textW(font, text, size)</code> вычисление ширины текста в пикселях (font - шрифт, text - текст, size - размер)</p>
+<p><code>intraFont.textH(font)</code> вычисление высоты шрифта в пикселях с учётом текущего размера (font - шрифт)</p>
+<p><code>intraFont.unload(font)</code> выгрузка шрифта из памяти (font - шрифт)</p>
 </details>
-
 
 
 <details id="system">
 <summary data-i18n="docs.system">System — Система</summary>
-
-<p>
-<code>System.rename(path, newName)</code>
-<span data-i18n="docs.system.rename">
-переименование файла или папки (path — путь к файлу или папке, newName — новое имя)
-</span>
-</p>
-
-<p>
-<code>System.removeFile(path)</code>
-<span data-i18n="docs.system.removeFile">
-удаление файла (path — путь к файлу)
-</span>
-</p>
-
-<p>
-<code>System.removeDir(path)</code>
-<span data-i18n="docs.system.removeDir">
-удаление папки (path — путь к папке)
-</span>
-</p>
-
-<p>
-<code>System.createDir(path)</code>
-<span data-i18n="docs.system.createDir">
-создание новой папки (path — путь к создаваемой папке)
-</span>
-</p>
-
-<p>
-<code>System.isFile(path)</code>
-<span data-i18n="docs.system.isFile">
-проверка существования файла (path — путь к файлу)
-</span>
-</p>
-
-<p>
-<code>System.isDir(path)</code>
-<span data-i18n="docs.system.isDir">
-проверка, является ли путь папкой (path — путь к папке)
-</span>
-</p>
-
-<p>
-<code>System.currentDir(path)</code>
-<span data-i18n="docs.system.currentDir">
-смена текущей рабочей директории (path — путь к новой директории)
-</span>
-</p>
-
-<p>
-<code>System.listDir(path)</code>
-<span data-i18n="docs.system.listDir">
-получение списка файлов и папок в директории (path — путь к директории)
-</span>
-</p>
-
-<p>
-<code>System.OSK(text, desc, cleanBG, bgpath)</code>
-<span data-i18n="docs.system.osk">
-вызов системной клавиатуры PSP
-</span>
-</p>
-
-<p>
-<code>System.message(message, mode, cleanBG, bgpath)</code>
-<span data-i18n="docs.system.message">
-вывод системного сообщения
-</span>
-</p>
-
-<p>
-<code>System.getBatteryPercent()</code>
-<span data-i18n="docs.system.getBatteryPercent">
-получение текущего заряда аккумулятора в процентах
-</span>
-</p>
-
-<p>
-<code>System.getBatteryLifeTime()</code>
-<span data-i18n="docs.system.getBatteryLifeTime">
-получение оставшегося времени работы аккумулятора в минутах
-</span>
-</p>
-
-<p>
-<code>System.getCPU()</code>
-<span data-i18n="docs.system.getCPU">
-получение текущей частоты процессора
-</span>
-</p>
-
-<p>
-<code>System.getModel()</code>
-<span data-i18n="docs.system.getModel">
-получение модели консоли PSP
-</span>
-</p>
-
-<p>
-<code>System.getTime()</code>
-<span data-i18n="docs.system.getTime">
-получение текущего времени и даты, выставленных на консоли
-</span>
-</p>
-
-<p>
-<code>System.getOSV()</code>
-<span data-i18n="docs.system.getOSV">
-получение версии установленной официальной прошивки
-</span>
-</p>
-
-<p>
-<code>System.GC()</code>
-<span data-i18n="docs.system.gc">
-очистка оперативной памяти от LUA-мусора
-</span>
-</p>
-
-<p>
-<code>System.buttonPressed()</code>
-<span data-i18n="docs.system.buttonPressed">
-получение кнопки, нажатой в окне System.message()
-</span>
-</p>
-
-<p>
-<code>System.getNickname()</code>
-<span data-i18n="docs.system.getNickname">
-получение никнейма консоли
-</span>
-</p>
-
-<p>
-<code>System.getLang()</code>
-<span data-i18n="docs.system.getLang">
-получение языка, установленного в системе
-</span>
-</p>
-
-<p>
-<code>System.PowerTick()</code>
-<span data-i18n="docs.system.powerTick">
-предотвращение перехода консоли в спящий режим и отключения экрана
-</span>
-</p>
-
-<p>
-<code>System.getGameID()</code>
-<span data-i18n="docs.system.getGameID">
-получение ID игры (например, UCJS10041)
-</span>
-</p>
-
-<p>
-<code>System.getGameTitle()</code>
-<span data-i18n="docs.system.getGameTitle">
-получение названия текущей игры
-</span>
-</p>
-
-<p>
-<code>System.SaveData(saveData, subTitle, description, ebootpath, icon0path, cleanBG, bgpath)</code>
-<span data-i18n="docs.system.saveData">
-сохранение данных с выбором слота
-</span>
-</p>
-
-<p>
-<code>System.LoadData(cleanBG, bgpath)</code>
-<span data-i18n="docs.system.loadData">
-загрузка сохранённых данных с выбором слота
-</span>
-</p>
-
-<p>
-<code>System.DeleteData(cleanBG, bgpath)</code>
-<span data-i18n="docs.system.deleteData">
-удаление сохранения через системное окно
-</span>
-</p>
-
-<p>
-<code>System.AutoSave(saveData, subTitle, description, ebootpath, AutoSaveFolder, icon0path)</code>
-<span data-i18n="docs.system.autoSave">
-автоматическое сохранение данных без вызова интерфейса
-</span>
-</p>
-
-<p>
-<code>System.AutoLoad(AutoSaveFolder)</code>
-<span data-i18n="docs.system.autoLoad">
-автоматическая загрузка сохранённых данных
-</span>
-</p>
-
-<p>
-<code>System.fileDumpCreate(file)</code>
-<span data-i18n="docs.system.fileDumpCreate">
-загрузка файла в память и получение указателя
-</span>
-</p>
-
-<p>
-<code>System.fileDumpGetLine(filePointer, pos)</code>
-<span data-i18n="docs.system.fileDumpGetLine">
-получение строки из загруженного файла
-</span>
-</p>
-
-<p>
-<code>System.fileDumpRemove(filePointer, linesCount)</code>
-<span data-i18n="docs.system.fileDumpRemove">
-выгрузка файла из памяти
-</span>
-</p>
-
-<p>
-<code>System.Net()</code>
-<span data-i18n="docs.system.net">
-подключение консоли к сети
-</span>
-</p>
-
-<p>
-<code>System.USB.activate()</code>
-<span data-i18n="docs.system.usbActivate">
-активация USB-режима
-</span>
-</p>
-
-<p>
-<code>System.USB.deactivate()</code>
-<span data-i18n="docs.system.usbDeactivate">
-деактивация USB-режима
-</span>
-</p>
-
-<p>
-<code>System.USB.getState()</code>
-<span data-i18n="docs.system.usbGetState">
-получение текущего состояния USB-режима
-</span>
-</p>
-
+<p><code>System.rename(path, newName)</code> переименование файла или папки (path - путь к файлу или папке, newName - новое имя)</p>
+<p><code>System.removeFile(path)</code> удаление файла (path - путь к файлу)</p>
+<p><code>System.removeDir(path)</code> удаление папки (path - путь к папке)</p>
+<p><code>System.createDir(path)</code> создание новой папки (path - путь к создаваемой папке)</p>
+<p><code>System.isFile(path)</code> проверка существования файла (path - путь к файлу)</p>
+<p><code>System.isDir(path)</code> проверка является ли путь папкой (path - путь к папке)</p>
+<p><code>System.currentDir(path)</code> смена текущей рабочей директории (path - путь к новой директории)</p>
+<p><code>System.listDir(path)</code> получение списка файлов и папок в директории (path - путь к директории)</p>
+<p><code>System.OSK(text, desc, cleanBG, bgpath)</code> вызов системной клавиатуры PSP (text - начальный текст, desc - описание поля ввода, cleanBG - очистка фона, bgpath - путь к фону)</p>
+<p><code>System.message(message, mode, cleanBG, bgpath)</code> вывод системного сообщения (message - текст сообщения, mode - режим окна, cleanBG - очистка фона, bgpath - путь к фону)</p>
+<p><code>System.getBatteryPercent()</code> получение текущего заряда аккумулятора в процентах</p>
+<p><code>System.getBatteryLifeTime()</code> получение оставшегося времени работы аккумулятора в минутах</p>
+<p><code>System.getCPU()</code> получение текущей частоты процессора</p>
+<p><code>System.getModel()</code> получение модели консоли PSP</p>
+<p><code>System.getTime()</code> получение текущего времени и даты, выставленных на консоли</p>
+<p><code>System.getOSV()</code> получение версии установленной официальной прошивки</p>
+<p><code>System.GC()</code> очистка оперативной памяти от LUA-мусора</p>
+<p><code>System.buttonPressed()</code> получение кнопки, нажатой в окне System.message()</p>
+<p><code>System.getNickname()</code> получение никнейма консоли</p>
+<p><code>System.getLang()</code> получение языка, установленного в системе</p>
+<p><code>System.PowerTick()</code> предотвращение перехода консоли в спящий режим и отключения экрана</p>
+<p><code>System.getGameID()</code> получение ID игры (например, UCJS10041)</p>
+<p><code>System.getGameTitle()</code> получение названия текущей игры</p>
+<p><code>System.SaveData(saveData, subTitle, description, ebootpath, icon0path, cleanBG, bgpath)</code> сохранение данных с выбором слота (saveData - данные, subTitle - подзаголовок, description - описание, ebootpath - путь к EBOOT.PBP, icon0path - путь к иконке, cleanBG - очистка фона, bgpath - путь к фону)</p>
+<p><code>System.LoadData(cleanBG, bgpath)</code> загрузка сохранённых данных с выбором слота (cleanBG - очистка фона, bgpath - путь к фону)</p>
+<p><code>System.DeleteData(cleanBG, bgpath)</code> удаление сохранения через системное окно (cleanBG - очистка фона, bgpath - путь к фону)</p>
+<p><code>System.AutoSave(saveData, subTitle, description, ebootpath, AutoSaveFolder, icon0path)</code> автоматическое сохранение данных без вызова интерфейса (saveData - данные, subTitle - подзаголовок, description - описание, ebootpath - путь к EBOOT.PBP, AutoSaveFolder - папка автосохранения, icon0path - путь к иконке)</p>
+<p><code>System.AutoLoad(AutoSaveFolder)</code> автоматическая загрузка сохранённых данных (AutoSaveFolder - папка автосохранения)</p>
+<p><code>System.fileDumpCreate(file)</code> загрузка файла в память и получение указателя (file - путь к файлу)</p>
+<p><code>System.fileDumpGetLine(filePointer, pos)</code> получение строки из загруженного файла (filePointer - указатель файла, pos - номер строки)</p>
+<p><code>System.fileDumpRemove(filePointer, linesCount)</code> выгрузка файла из памяти (filePointer - указатель файла, linesCount - количество строк)</p>
+<p><code>System.Net()</code> подключение консоли к сети</p>
+<p><code>System.USB.activate()</code> активация USB-режима</p>
+<p><code>System.USB.deactivate()</code> деактивация USB-режима</p>
+<p><code>System.USB.getState()</code> получение текущего состояния USB-режима</p>
 </details>
-
 
 <details id="screen">
 <summary data-i18n="docs.screen">screen - Экран</summary>
-
-<p>
-<code>screen.clear(color)</code>
-<span data-i18n="docs.screen.clear">
-очистка экрана перед отрисовкой кадра (color — цвет очистки экрана)
-</span>
-</p>
-
-<p>
-<code>screen.flip()</code>
-<span data-i18n="docs.screen.flip">
-вывод изображения с виртуального экрана на реальный (обновление кадра)
-</span>
-</p>
-
-<p>
-<code>screen.filledRect(x, y, width, height, color, rotation, alpha, alignMode)</code>
-<span data-i18n="docs.screen.filledRect">
-отрисовка заполненного прямоугольника
-</span>
-</p>
-
-<p>
-<code>screen.drawLine(x1, y1, x2, y2, color)</code>
-<span data-i18n="docs.screen.drawLine">
-отрисовка линии
-</span>
-</p>
-
-<p>
-<code>screen.drawCircle(x, y, radius, color)</code>
-<span data-i18n="docs.screen.drawCircle">
-отрисовка окружности
-</span>
-</p>
-
-<p>
-<code>screen.drawTriangle(x1, y1, x2, y2, x3, y3, color)</code>
-<span data-i18n="docs.screen.drawTriangle">
-отрисовка треугольника
-</span>
-</p>
-
+<p><code>screen.clear(color)</code> очистка экрана перед отрисовкой кадра (color - цвет очистки экрана)</p>
+<p><code>screen.flip()</code> вывод изображения с виртуального экрана на реальный (обновление кадра)</p>
+<p><code>screen.filledRect(x, y, width, height, color, rotation, alpha, alignMode)</code> отрисовка заполненного прямоугольника (x и y - позиция, width и height - размеры, color - цвет, rotation - поворот, alpha - прозрачность, alignMode - режим выравнивания)</p>
+<p><code>screen.drawLine(x1, y1, x2, y2, color)</code> отрисовка линии (x1 и y1 - начало линии, x2 и y2 - конец линии, color - цвет)</p>
+<p><code>screen.drawCircle(x, y, radius, color)</code> отрисовка окружности (x и y - центр окружности, radius - радиус, color - цвет)</p>
+<p><code>screen.drawTriangle(x1, y1, x2, y2, x3, y3, color)</code> отрисовка треугольника (x1,y1 / x2,y2 / x3,y3 - координаты вершин, color - цвет)</p>
 </details>
-
 
 <details id="sound">
 <summary data-i18n="docs.sound">sound - Звук</summary>
-
-<p>
-<code>sound.cloud(path, channel, loadToRam)</code>
-<span data-i18n="docs.sound.cloud">
-предзагрузка аудиофайла в канал
-</span>
-</p>
-
-<p>
-<code>sound.play(channel, loop)</code>
-<span data-i18n="docs.sound.play">
-воспроизведение загруженного аудиофайла
-</span>
-</p>
-
-<p>
-<code>sound.info()</code>
-<span data-i18n="docs.sound.info">
-получение ID3-информации из mp3 файла
-</span>
-</p>
-
-<p>
-<code>sound.pause(channel)</code>
-<span data-i18n="docs.sound.pause">
-приостановка воспроизведения звука
-</span>
-</p>
-
-<p>
-<code>sound.volume(channel, volumeL, volumeR)</code>
-<span data-i18n="docs.sound.volume">
-изменение громкости воспроизведения
-</span>
-</p>
-
-<p>
-<code>sound.stop(channel)</code>
-<span data-i18n="docs.sound.stop">
-остановка воспроизведения звука
-</span>
-</p>
-
-<p>
-<code>sound.state(channel)</code>
-<span data-i18n="docs.sound.state">
-получение состояния звукового канала
-</span>
-</p>
-
-<p>
-<code>sound.unload(channel)</code>
-<span data-i18n="docs.sound.unload">
-выгрузка аудиофайла из канала
-</span>
-</p>
-
+<p><code>sound.cloud(path, channel, loadToRam)</code> предзагрузка аудиофайла в канал (path - путь к .mp3/.wav/.ogg/.at3, channel - канал звука, loadToRam - загрузка в ОЗУ)</p>
+<p><code>sound.play(channel, loop)</code> воспроизведение загруженного аудиофайла (channel - канал звука, loop - зацикливание воспроизведения)</p>
+<p><code>sound.info()</code> получение ID3-информации из mp3 файла, загруженного в канал</p>
+<p><code>sound.pause(channel)</code> приостановка воспроизведения звука (channel - канал)</p>
+<p><code>sound.volume(channel, volumeL, volumeR)</code> изменение громкости воспроизведения (channel - канал, volumeL - громкость левого канала, volumeR - громкость правого канала)</p>
+<p><code>sound.stop(channel)</code> остановка воспроизведения звука (channel - канал)</p>
+<p><code>sound.state(channel)</code> получение состояния звукового канала (channel - канал)</p>
+<p><code>sound.unload(channel)</code> выгрузка аудиофайла из канала (channel - канал)</p>
 </details>
-
 
 <details id="pmp">
 <summary data-i18n="docs.pmp">pmp - PMP видео</summary>
-
-<p>
-<code>PMP.getFrame(pointer)</code>
-<span data-i18n="docs.pmp.getFrame">
-проверка воспроизведения видео и обновление указателя
-</span>
-</p>
-
-<p>
-<code>PMP.getTimeCode()</code>
-<span data-i18n="docs.pmp.getTimeCode">
-получение текущего времени воспроизведения видео в секундах
-</span>
-</p>
-
-<p>
-<code>PMP.getSubs()</code>
-<span data-i18n="docs.pmp.getSubs">
-получение текста субтитров текущего видео
-</span>
-</p>
-
-<p>
-<code>PMP.pause()</code>
-<span data-i18n="docs.pmp.pause">
-приостановка воспроизведения видео
-</span>
-</p>
-
-<p>
-<code>PMP.play(path, getPointer, loop, subtitlePath, interruptButton, FPS)</code>
-<span data-i18n="docs.pmp.play">
-воспроизведение .pmp файла
-</span>
-</p>
-
-<p>
-<code>PMP.setVolume(volume)</code>
-<span data-i18n="docs.pmp.setVolume">
-установка громкости воспроизведения видео
-</span>
-</p>
-
-<p>
-<code>PMP.stop(pointer)</code>
-<span data-i18n="docs.pmp.stop">
-остановка воспроизведения видео
-</span>
-</p>
-
-<p>
-<code>PMP.Mp4_Info(path)</code>
-<span data-i18n="docs.pmp.mp4Info">
-вывод информации о MP4 файле (функция устаревшая)
-</span>
-</p>
-
+<p><code>PMP.getFrame(pointer)</code> проверка воспроизведения видео и обновление указателя (pointer - указатель на запущенный PMP, возвращает true, если видео играет)</p>
+<p><code>PMP.getTimeCode()</code> получение текущего времени воспроизведения видео в секундах</p>
+<p><code>PMP.getSubs()</code> получение текста субтитров текущего видео</p>
+<p><code>PMP.pause()</code> приостановка воспроизведения видео</p>
+<p><code>PMP.play(path, getPointer, loop, subtitlePath, interruptButton, FPS)</code> воспроизведение .pmp файла (path - путь к видео, getPointer - возвращать указатель, loop - зацикливание, subtitlePath - путь к субтитрам .srt, interruptButton - кнопка остановки, FPS - кадры в секунду, возвращает указатель если getPointer = true)</p>
+<p><code>PMP.setVolume(volume)</code> установка громкости воспроизведения видео (volume - громкость от 0 до 100)</p>
+<p><code>PMP.stop(pointer)</code> остановка воспроизведения видео (pointer - указатель на запущенный PMP)</p>
+<p><code>PMP.Mp4_Info(path)</code> вывод в консоль информации о MP4 файле (path - путь к файлу, функция вероятно устаревшая)</p>
 </details>
-
 
 <details id="lua">
 <summary data-i18n="docs.lua">LUA - Базовые функции</summary>
-
-<p>
-<code>LUA.print(x, y, text)</code>
-<span data-i18n="docs.lua.print">
-вывод текста системным шрифтом на экран
-</span>
-</p>
-
-<p>
-<code>LUA.getRandom(min, max)</code>
-<span data-i18n="docs.lua.getRandom">
-генерация случайного числа в диапазоне от min до max
-</span>
-</p>
-
-<p>
-<code>LUA.getRAM()</code>
-<span data-i18n="docs.lua.getRAM">
-получение доступного объёма оперативной памяти
-</span>
-</p>
-
-<p>
-<code>LUA.screenshot(path, width, height)</code>
-<span data-i18n="docs.lua.screenshot">
-создание скриншота экрана
-</span>
-</p>
-
-<p>
-<code>LUA.exit()</code>
-<span data-i18n="docs.lua.exit">
-выход в XMB
-</span>
-</p>
-
-<p>
-<code>LUA.quit()</code>
-<span data-i18n="docs.lua.quit">
-выход в XMB
-</span>
-</p>
-
-<p>
-<code>LUA.sleep(ms)</code>
-<span data-i18n="docs.lua.sleep">
-пауза выполнения скрипта
-</span>
-</p>
-
+<p><code>LUA.print(x, y, text)</code> вывод текста системным шрифтом на экран (x и y - координаты, text - текст для вывода)</p>
+<p><code>LUA.getRandom(min, max)</code> генерация случайного числа в диапазоне от min до max (включительно)</p>
+<p><code>LUA.getRAM()</code> получение доступного объёма оперативной памяти в байтах (погрешность ~512 КБ)</p>
+<p><code>LUA.screenshot(path, width, height)</code> создание скриншота экрана (path - путь сохранения, width и height - размеры изображения)</p>
+<p><code>LUA.exit()</code> выход в XMB</p>
+<p><code>LUA.quit()</code> выход в XMB</p>
+<p><code>LUA.sleep(ms)</code> пауза выполнения скрипта на указанное количество миллисекунд (ms)</p>
 </details>
-
 
 <details id="timer">
 <summary data-i18n="docs.timer">timer - Таймеры</summary>
-
-<p>
-<code>timer.create()</code>
-<span data-i18n="docs.timer.create">
-создание нового таймера
-</span>
-</p>
-
-<p>
-<code>timer.start(timerInstance)</code>
-<span data-i18n="docs.timer.start">
-запуск ранее созданного таймера
-</span>
-</p>
-
-<p>
-<code>timer.time(timerInstance)</code>
-<span data-i18n="docs.timer.time">
-получение времени, отсчитанного таймером
-</span>
-</p>
-
-<p>
-<code>timer.stop(timerInstance)</code>
-<span data-i18n="docs.timer.stop">
-остановка таймера
-</span>
-</p>
-
-<p>
-<code>timer.reset(timerInstance)</code>
-<span data-i18n="docs.timer.reset">
-остановка и сброс таймера
-</span>
-</p>
-
-<p>
-<code>timer.remove(timerInstance)</code>
-<span data-i18n="docs.timer.remove">
-удаление таймера
-</span>
-</p>
-
+<p><code>timer.create()</code> создание нового таймера (возвращает объект таймера)</p>
+<p><code>timer.start(timerInstance)</code> запуск ранее созданного таймера (timerInstance - объект таймера)</p>
+<p><code>timer.time(timerInstance)</code> получение времени, отсчитанного таймером в миллисекундах (timerInstance - объект таймера)</p>
+<p><code>timer.stop(timerInstance)</code> остановка таймера (timerInstance - объект таймера)</p>
+<p><code>timer.reset(timerInstance)</code> остановка и сброс таймера (timerInstance - объект таймера)</p>
+<p><code>timer.remove(timerInstance)</code> удаление таймера (timerInstance - объект таймера)</p>
 </details>
-
 
 </section>
 
