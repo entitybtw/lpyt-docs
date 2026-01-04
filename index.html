@@ -259,12 +259,12 @@ LuaPlayerYT 0.5 beta 3 — документация основаная на LuaP
 <tr><td>buttons.square</td><td>32768</td></tr>
 <tr><td>buttons.home</td><td>65536</td></tr>
 </table>
-<p><code>buttons.read()</code></p>
-<p><code>buttons.Lx()</code></p>
-<p><code>buttons.Ly()</code></p>
-<p><code>buttons.pressed(button)</code></p>
-<p><code>buttons.held(button)</code></p>
-<p><code>buttons.released(button)</code></p>
+<p><code>buttons.read() ; считывает состояния кнопок. (желательно вызывать перед вызовом остальных функций для чтения состояния)</code></p>
+<p><code>buttons.Lx() ; считывает позицию стика по X, возвращает целое значение от -128 до 127</code></p>
+<p><code>buttons.Ly() ; считывает позицию стика по Y, возвращает целое значение от -128 до 127</code></p>
+<p><code>buttons.pressed(button) ; проверка на то, была ли кнопка нажата только что (не зажата!)</code></p>
+<p><code>buttons.held(button) ; проверка на то, удерживается ли кнопка в данный момент</code></p>
+<p><code>buttons.released(button) ; проверка на то, отпущенна ли кнопка в данный момент</code></p>
 </details>
 
 <details id="color">
@@ -278,40 +278,42 @@ LuaPlayerYT 0.5 beta 3 — документация основаная на LuaP
 <h3 data-i18n="docs.align">Выравнивание</h3>
 <table>
 <tr><th data-i18n="docs.constant">Константа</th><th data-i18n="docs.value">Значение</th></tr>
-<tr><td>Image.lUp</td><td>0</td></tr>
-<tr><td>Image.rUp</td><td>1</td></tr>
-<tr><td>Image.rDn</td><td>2</td></tr>
-<tr><td>Image.lDn</td><td>3</td></tr>
-<tr><td>Image.Center</td><td>4</td></tr>
+<tr><td>Image.lUp (id: 0) ; положение сверху-слева (по умолчанию)</td><td>0</td></tr>
+<tr><td>Image.rUp (id: 1) ; положение сверху-справа</td><td>1</td></tr>
+<tr><td>Image.rDn (id: 2) ; положение снизу-справа</td><td>2</td></tr>
+<tr><td>Image.lDn (id: 3) ; положение снизу-слева</td><td>3</td></tr>
+<tr><td>Image.Center (id: 4) ; положение по центру</td><td>4</td></tr>
 </table>
 <h3 data-i18n="docs.functions">Функции</h3>
-<p><code>Image.load(path)</code></p>
-<p><code>Image.unload(texture)</code></p>
-<p><code>Image.W(texture)</code></p>
-<p><code>Image.H(texture)</code></p>
-<p><code>Image.draw(texture, x, y, w, h, color, srcx, srcy, srcw, srch, rotation, alpha, alignMode, GU_LINEAR, GU_REPEAT)</code></p>
+<p><code>Image.load(path) ; загрузка изображения в память (path - путь к изображению)</code></p>
+<p><code>Image.unload(texture) ; выгрузка изображения из памяти (texture - предварительно загруженное изображение)</code></p>
+<p><code>Image.W(texture) ; получение высоты изображения (texture - предварительно загруженное изображение)</code></p>
+<p><code>Image.H(texture) ; получение ширины изображения (texture - предварительно загруженное изображение</code></p>
+<p><code>Image.draw(texture, x, y, w, h, color, srcx, srcy, srcw, srch, rotation, alpha, alignMode, GU_LINEAR, GU_REPEAT) ; полная отрисовка изображения (texture - предварительно загруженное изображение, x - позиция изображения по X, y - позиция изображения по Y, w - ширина изображения (по умолчанию размер загруженного изображения, h - высота изображения (по умолчанию размер загруженного изображения), color - цвет изображения, srcx и srcy - координаты начала захвата рабочей области изображения (по умолчанию: 0), srcw и srch - координаты окончания захвата рабочей области изображения (по умолчанию: srcw = ширина изображения, srch = высота изображения)</code></p>
 <p><code>Image.draweasy(texture, x, y, color, rotation, alpha, alignMode, GU_LINEAR, GU_REPEAT)</code></p>
-<p><code>Image.drawCircleOnTex(texture, x, y, rotation, color)</code></p>
-<p><code>Image.createPlaceholder()</code></p>
+<p><code>Image.drawCircleOnTex(texture, x, y, rotation, color) ; отрисовка окружности на изображении</code></p>
+<p><code>Image.createPlaceholder() ; создает 'шахматную' текстуру как текстура-заполнитель</code></p>
 </details>
+
+
 
 <details id="intrafont">
 <summary data-i18n="docs.intrafont">intraFont — Шрифты</summary>
 <h3 data-i18n="docs.align">Выравнивание</h3>
-<p><code>ALIGN_LEFT = 0</code></p>
-<p><code>ALIGN_CENTER = 512</code></p>
-<p><code>ALIGN_RIGHT = 1024</code></p>
+<p><code>ALIGN_LEFT = 0 ; слева</code></p>
+<p><code>ALIGN_CENTER = 512 ; по середине</code></p>
+<p><code>ALIGN_RIGHT = 1024</code> ; справа</p>
 <h3 data-i18n="docs.scroll">Скроллинг</h3>
 <p><code>SCROLL_LEFT = 8192</code></p>
 <p><code>SCROLL_SEESAW = 8704</code></p>
 <p><code>SCROLL_RIGHT = 9216</code></p>
 <p><code>SCROLL_THROUGH = 9728</code></p>
 <h3 data-i18n="docs.functions">Функции</h3>
-<p><code>intraFont.load(path, size)</code></p>
-<p><code>intraFont.setStyle(font, size, color, rotation, align)</code></p>
-<p><code>intraFont.print(x, y, text, textColor, font, size, rotation, GU_LINEAR, align)</code></p>
-<p><code>intraFont.printBackground(x, y, text, textColor, bgColor, font, size)</code></p>
-<p><code>intraFont.printColumn(x, y, text, width, textColor, font, size, align, scroll)</code></p>
+<p><code>intraFont.load(path, size) ; загрузка шрифта в ОЗУ в форматах TTF и PGF(path - путь до шрифта, size - размер шрифта)</code></p>
+<p><code>intraFont.setStyle(font, size, color, rotation, align) ; задает стиль шрифта (font - шрифт, size - размер, color - цвет, rotation - поворот, align - выравнивание)</code></p>
+<p><code>intraFont.print(x, y, text, textColor, font, size, rotation, GU_LINEAR, align) ; отрисовка текста (x и y - координаты позиции шрифта, text - выводимый текст, textColor - цвет, font - шрифт, size - размер, GU_LINEAR - режим фильтрации (линейная или отключена), align - выравнивание)</code></p>
+<p><code>intraFont.printBackground(x, y, text, textColor, bgColor, font, size) ; отрисовка текста с фоновой заливкой (x и y - координаты позиции шрифта, text - выводимый текст, textColor - цвет текста, bgColor - цвет фоновой заливки, font - шрифт, size - размер)</code></p>
+<p><code>intraFont.printColumn(x, y, text, width, textColor, font, size, align, scroll) ; отрисовка текста колонной (x и y - координаты позиции шрифта, text - выводимый текст, width - ширина текста в пикселях, textColor - цвет, font - шрифт, size - размер,align - выравнивание, scroll - скроллинг)</code></p>
 <p><code>intraFont.printContoured(x, y, text, textColor, contourColor, font, size, rotation)</code></p>
 <p><code>intraFont.printGradient(x, y, text, textColorStart, textColorEnd, font, size)</code></p>
 <p><code>intraFont.printStriked(x, y, text, textColor, lineColor, font, size)</code></p>
@@ -323,6 +325,7 @@ LuaPlayerYT 0.5 beta 3 — документация основаная на LuaP
 <p><code>intraFont.textH(font)</code></p>
 <p><code>intraFont.unload(font)</code></p>
 </details>
+
 
 <details id="system">
 <summary data-i18n="docs.system">System — Система</summary>
