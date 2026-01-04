@@ -326,14 +326,31 @@ LuaPlayerYT 0.5 beta 3 — документация основаная на LuaP
 
 <details id="system">
 <summary data-i18n="docs.system">System — Система</summary>
-<p><code>System.listDir(path?)</code></p>
-<p><code>System.OSK(...)</code></p>
+<p><code>System.rename(path, newName)</code></p>
+<p><code>System.removeFile(path)</code></p>
+<p><code>System.removeDir(path)</code></p>
+<p><code>System.createDir(path)</code></p>
+<p><code>System.isFile(path?) → boolean</code></p>
+<p><code>System.isDir(path?) → boolean</code></p>
+<p><code>System.listDir(path?) → table</code></p>
+<p><code>System.OSK(...) → string</code></p>
 <p><code>System.message(...)</code></p>
 <p><code>System.getBatteryPercent()</code></p>
+<p><code>System.getBatteryLifeTime()</code></p>
 <p><code>System.getCPU()</code></p>
-<p><code>System.SaveData(...)</code></p>
+<p><code>System.getModel()</code></p>
+<p><code>System.getTime()</code></p>
+<p><code>System.getOSV()</code></p>
+<p><code>System.getNickname()</code></p>
+<p><code>System.getLang()</code></p>
+<p><code>System.SaveData(...) → string</code></p>
+<p><code>System.LoadData(...) → table|nil</code></p>
+<p><code>System.DeleteData(...)</code></p>
+<p><code>System.AutoSave(...)</code></p>
+<p><code>System.AutoLoad(...)</code></p>
 <p><code>System.USB.activate()</code></p>
 <p><code>System.USB.deactivate()</code></p>
+<p><code>System.USB.getState()</code></p>
 </details>
 
 <details id="screen">
