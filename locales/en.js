@@ -42,7 +42,7 @@ const en = {
     title: "Engine Documentation",
     updated: {
       main: "LuaPlayerYT 0.5 beta 3 — documentation based on LuaPlayerYT LLS by илья' antim0118",
-      date: "Updated: December 31, 2025"
+      date: "Updated: January 5, 2026"
     },
     buttons: "buttons",
     color: "Color",

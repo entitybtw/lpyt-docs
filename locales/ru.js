@@ -42,7 +42,7 @@ const ru = {
     title: "Документация движка",
     updated: {
       main: "LuaPlayerYT 0.5 beta 3 — документация основаная на LuaPlayerYT LLS от ильи' antim0118",
-      date: "Обновлено: 31 декабря 2025"
+      date: "Обновлено: 5 января, 2026"
     },
     buttons: "buttons — Кнопки",
     color: "Color — Цвет",
