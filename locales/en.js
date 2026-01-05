@@ -79,7 +79,6 @@ const en = {
   },
   themeToggle: "🌙 / ☀️",
   langToggle: "en / ru",
-  // Comments for functions
   comments: {
     buttons: {
       read: "reads button states. (preferably call before other reading functions)",
@@ -205,7 +204,6 @@ const en = {
   }
 };
 
-// Экспортируем для использования в браузере
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = en;
 } else {

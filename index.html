@@ -9,7 +9,24 @@
 </head>
 <body>
 
-<aside>
+<div class="mobile-header">
+  <div class="mobile-header-content">
+    <h1 data-i18n="title"></h1>
+    <div class="mobile-theme">
+      <button id="mobileThemeToggle"></button>
+      <button id="mobileLangToggle"></button>
+      <button class="mobile-menu-btn" id="mobileMenuToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<aside id="sidebar">
 <h1 data-i18n="title"></h1>
 
 <div class="nav">
@@ -69,7 +86,7 @@ github.com/entitybtw/LuaPlayerYT-MCSM
 
 <p>
 <span data-i18n="build.step1"></span>
-<a href="https://pspdev.github.io/installation.html" target="_blank">official guide</a>.
+<a href="https://pspdev.github.io/installation.html" target="_blank"></a>
 </p>
 
 <p data-i18n="build.step2"></p>
@@ -80,9 +97,7 @@ github.com/entitybtw/LuaPlayerYT-MCSM
 
 <p>
 <span data-i18n="build.autoBuild"></span>
-<a href="https://github.com/antim0118/LuaPlayer-by-YuliaTeam/actions?query=branch%3Amain" target="_blank">
-GitHub Actions
-</a>.
+<a href="https://github.com/antim0118/LuaPlayer-by-YuliaTeam/actions?query=branch%3Amain" target="_blank"></a>
 </p>
 
 <h3 data-i18n="build.forkRepo"></h3>
@@ -97,9 +112,7 @@ GitHub Actions
 
 <p>
 <span data-i18n="build.forkAutoBuild"></span>
-<a href="https://github.com/entitybtw/LuaPlayerYT-MCSM/actions" target="_blank">
-GitHub Actions
-</a>.
+<a href="https://github.com/entitybtw/LuaPlayerYT-MCSM/actions" target="_blank"></a>
 </p>
 </section>
 
@@ -372,7 +385,7 @@ GitHub Actions
 <p data-i18n="additional.credit1"></p>
 <p>
 <span data-i18n="additional.credit2"></span>
-<a href="https://github.com/entitybtw/lpyt-docs" target="_blank">source code</a>
+<a href="https://github.com/entitybtw/lpyt-docs" target="_blank"></a>
 </p>
 <p data-i18n="additional.credit3"></p>
 <p data-i18n="additional.credit4"></p>

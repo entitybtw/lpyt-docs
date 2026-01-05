@@ -5,29 +5,25 @@ const tabs = document.querySelectorAll('.nav button[data-tab]');
 const sections = document.querySelectorAll('main section');
 const subnav = document.getElementById('docsSubnav');
 
-// Загружаем переводы асинхронно
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const mobileOverlay = document.getElementById('mobileOverlay');
+const sidebar = document.getElementById('sidebar');
+const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+const mobileLangToggle = document.getElementById('mobileLangToggle');
+
 async function loadTranslations(lang) {
   try {
     const response = await fetch(`locales/${lang}.js`);
     const scriptContent = await response.text();
-    
-    // Выполняем скрипт, чтобы добавить перевод в window.i18n
     const script = document.createElement('script');
     script.textContent = scriptContent;
     document.head.appendChild(script);
     document.head.removeChild(script);
-    
     return window.i18n[lang];
   } catch (error) {
     console.error(`Failed to load ${lang} translation:`, error);
-    
-    // Загружаем резервный перевод из localStorage если есть
     const backup = localStorage.getItem(`i18n_${lang}`);
-    if (backup) {
-      return JSON.parse(backup);
-    }
-    
-    // Если загрузка не удалась, загружаем другой язык
+    if (backup) return JSON.parse(backup);
     const fallbackLang = lang === 'ru' ? 'en' : 'ru';
     return await loadTranslations(fallbackLang);
   }
@@ -36,135 +32,105 @@ async function loadTranslations(lang) {
 let currentLang = localStorage.getItem('lang') || 'ru';
 let i18n = {};
 
-// Функция для обновления комментариев к функциям
 function updateFunctionComments(lang) {
-  if (!i18n[lang] || !i18n[lang].comments) return;
-  
+  if (!i18n[lang]?.comments) return;
   const comments = i18n[lang].comments;
-  
-  // Обновляем комментарии для каждой секции документации
   Object.keys(comments).forEach(sectionId => {
     const sectionComments = comments[sectionId];
     Object.keys(sectionComments).forEach(funcName => {
       const commentText = sectionComments[funcName];
       if (commentText) {
-        // Находим все элементы <p> которые содержат функцию
         const paragraphs = document.querySelectorAll(`#${sectionId} p`);
         paragraphs.forEach(p => {
           const text = p.textContent.trim();
-          if (text.startsWith(`<code>${funcName}(`) || 
-              text.startsWith(`<code>${sectionId}.${funcName}(`) ||
-              text.includes(`${funcName}(`)) {
-            // Находим элемент кода внутри параграфа
+          if (text.includes(`${funcName}(`)) {
             const codeElement = p.querySelector('code');
             if (codeElement) {
-              // Создаем новый контент с комментарием
               const funcCall = codeElement.textContent;
-              const newContent = document.createElement('div');
-              newContent.innerHTML = `<code>${funcCall}</code>`;
-              
-              // Добавляем комментарий только если он есть
-              if (commentText.trim()) {
-                const commentSpan = document.createElement('span');
-                commentSpan.textContent = ` ${commentText}`;
-                commentSpan.style.color = 'var(--muted)';
-                commentSpan.style.fontSize = '14px';
-                newContent.appendChild(commentSpan);
-              }
-              
-              // Заменяем содержимое параграфа
-              p.innerHTML = '';
-              p.appendChild(newContent);
+              p.innerHTML = `<code>${funcCall}</code> <span style="color:var(--muted);font-size:14px">${commentText}</span>`;
             }
           }
         });
       }
     });
   });
-  
-  // Обновляем специальные комментарии в секции buttons
-  if (sectionId === 'buttons' && lang === 'ru') {
-    const buttonsIntro = document.querySelector('#buttons p');
-    if (buttonsIntro && buttonsIntro.textContent.includes('считывает состояния кнопок')) {
-      buttonsIntro.innerHTML = `<code>buttons.read()</code> ${comments.buttons.read}`;
-    }
-  }
 }
 
-// Основная функция применения языка
 function applyLanguage(lang) {
   if (!i18n[lang]) return;
-  
   currentLang = lang;
   localStorage.setItem('lang', lang);
-  
-  // Обновляем все элементы с data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     const keys = key.split('.');
     let text = i18n[lang];
-    
-    // Ищем вложенные свойства
     for (const k of keys) {
-      if (text && text[k] !== undefined) {
-        text = text[k];
-      } else {
-        console.warn(`Translation key not found: ${key}`);
-        text = key;
-        break;
-      }
+      if (text?.[k] !== undefined) text = text[k];
+      else { text = key; break; }
     }
-    
-    if (typeof text === 'string') {
-      el.textContent = text;
-    }
+    if (typeof text === 'string') el.textContent = text;
   });
-  
-  // Обновляем переключатель языка
   document.getElementById('langToggle').textContent = i18n[lang].langToggle;
+  if (mobileLangToggle) mobileLangToggle.textContent = lang === 'ru' ? 'ru' : 'en';
   document.documentElement.lang = lang;
-  
-  // Обновляем комментарии к функциям
   updateFunctionComments(lang);
 }
 
-// Инициализация переводов
 async function initTranslations() {
-  // Загружаем оба перевода
   const [ruTranslations, enTranslations] = await Promise.all([
     loadTranslations('ru'),
     loadTranslations('en')
   ]);
-  
-  i18n = {
-    ru: ruTranslations,
-    en: enTranslations
-  };
-  
-  // Сохраняем в localStorage для резервного использования
+  i18n = { ru: ruTranslations, en: enTranslations };
   localStorage.setItem('i18n_ru', JSON.stringify(ruTranslations));
   localStorage.setItem('i18n_en', JSON.stringify(enTranslations));
-  
-  // Инициализация темы
   body.dataset.theme = localStorage.getItem('theme') || 'dark';
-  
-  // Применяем текущий язык
+  if (mobileThemeToggle) mobileThemeToggle.textContent = body.dataset.theme === 'dark' ? '🌙' : '☀️';
+  toggle.textContent = body.dataset.theme === 'dark' ? '🌙 / ☀️' : '☀️ / 🌙';
   applyLanguage(currentLang);
 }
 
-// Обработчики событий
-document.getElementById('themeToggle').onclick = () => {
+function toggleMobileMenu() {
+  sidebar.classList.toggle('mobile-visible');
+  mobileOverlay.classList.toggle('visible');
+  body.style.overflow = sidebar.classList.contains('mobile-visible') ? 'hidden' : '';
+}
+
+if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
+if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+
+document.querySelectorAll('.nav button, .subnav button').forEach(button => {
+  button.addEventListener('click', () => {
+    if (window.innerWidth <= 768) toggleMobileMenu();
+  });
+});
+
+if (mobileThemeToggle) {
+  mobileThemeToggle.addEventListener('click', () => {
+    const t = body.dataset.theme === 'dark' ? 'light' : 'dark';
+    body.dataset.theme = t;
+    localStorage.setItem('theme', t);
+    mobileThemeToggle.textContent = t === 'dark' ? '🌙' : '☀️';
+    toggle.textContent = t === 'dark' ? '🌙 / ☀️' : '☀️ / 🌙';
+  });
+}
+
+if (mobileLangToggle) {
+  mobileLangToggle.addEventListener('click', () => {
+    applyLanguage(currentLang === 'ru' ? 'en' : 'ru');
+  });
+}
+
+toggle.onclick = () => {
   const t = body.dataset.theme === 'dark' ? 'light' : 'dark';
   body.dataset.theme = t;
   localStorage.setItem('theme', t);
+  if (mobileThemeToggle) mobileThemeToggle.textContent = t === 'dark' ? '🌙' : '☀️';
+  toggle.textContent = t === 'dark' ? '🌙 / ☀️' : '☀️ / 🌙';
 };
 
-document.getElementById('langToggle').onclick = () => {
-  const newLang = currentLang === 'ru' ? 'en' : 'ru';
-  applyLanguage(newLang);
-};
+langToggle.onclick = () => applyLanguage(currentLang === 'ru' ? 'en' : 'ru');
 
-// Функции для вкладок
 function openTab(id) {
   tabs.forEach(b => b.classList.toggle('active', b.dataset.tab === id));
   sections.forEach(s => s.classList.toggle('active', s.id === id));
@@ -184,14 +150,19 @@ document.querySelectorAll('.subnav button').forEach(b => {
   };
 });
 
-// Инициализация при загрузке
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    sidebar.classList.remove('mobile-visible');
+    mobileOverlay.classList.remove('visible');
+    body.style.overflow = '';
+  }
+});
+
 initTranslations().then(() => {
-  // Открываем вкладку из hash или по умолчанию
   const hash = location.hash.replace('#', '');
   openTab(hash || 'intro');
 });
 
-// Обработка хэша при загрузке
 window.addEventListener('hashchange', () => {
   const hash = location.hash.replace('#', '');
   if (hash) openTab(hash);
