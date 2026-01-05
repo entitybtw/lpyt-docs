@@ -114,7 +114,6 @@ color:var(--text);
 cursor:pointer;
 margin-bottom:8px;
 }
-/* Контент */
 main{
 margin-left:260px;
 padding:48px;
@@ -182,15 +181,17 @@ z-index:850;
 }
 .mobile-overlay.visible{display:block}
 .nav button{
-padding:14px 0;
-margin-bottom:8px;
+padding:0;
+margin-bottom:10px; 
 font-size:16px;
-border-bottom:1px solid var(--border);
+border-bottom:none;
 }
 .subnav button{
-padding:12px 0 12px 16px;
-margin-bottom:6px;
-font-size:15px;
+padding:0;
+margin-bottom:8px;
+font-size:14px;
+margin-left:12px;
+border-bottom:none;
 }
 main{
 margin-left:0;
