@@ -70,8 +70,11 @@ function applyLanguage(lang) {
     }
     if (typeof text === 'string') el.textContent = text;
   });
-  document.getElementById('langToggle').textContent = i18n[lang].langToggle;
-  if (mobileLangToggle) mobileLangToggle.textContent = lang === 'ru' ? 'ru' : 'en';
+  const langText = i18n[lang].langToggle;
+  langToggle.textContent = langText;
+  if (mobileLangToggle) {
+    mobileLangToggle.textContent = lang === 'ru' ? 'ru' : 'en';
+  }
   document.documentElement.lang = lang;
   updateFunctionComments(lang);
 }
@@ -84,36 +87,57 @@ async function initTranslations() {
   i18n = { ru: ruTranslations, en: enTranslations };
   localStorage.setItem('i18n_ru', JSON.stringify(ruTranslations));
   localStorage.setItem('i18n_en', JSON.stringify(enTranslations));
-  body.dataset.theme = localStorage.getItem('theme') || 'dark';
-  if (mobileThemeToggle) mobileThemeToggle.textContent = body.dataset.theme === 'dark' ? '🌙' : '☀️';
-  toggle.textContent = body.dataset.theme === 'dark' ? '🌙 / ☀️' : '☀️ / 🌙';
+  
+  const theme = localStorage.getItem('theme') || 'dark';
+  body.dataset.theme = theme;
+  updateThemeButtons(theme);
   applyLanguage(currentLang);
 }
 
-function toggleMobileMenu() {
-  sidebar.classList.toggle('mobile-visible');
-  mobileOverlay.classList.toggle('visible');
-  body.style.overflow = sidebar.classList.contains('mobile-visible') ? 'hidden' : '';
+function updateThemeButtons(theme) {
+  const isDark = theme === 'dark';
+  toggle.textContent = isDark ? '🌙 / ☀️' : '☀️ / 🌙';
+  if (mobileThemeToggle) {
+    mobileThemeToggle.textContent = isDark ? '🌙' : '☀️';
+  }
 }
 
-if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
-if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+function toggleMobileMenu() {
+  const isVisible = sidebar.classList.toggle('mobile-visible');
+  if (mobileOverlay) {
+    mobileOverlay.classList.toggle('visible', isVisible);
+  }
+  body.style.overflow = isVisible ? 'hidden' : '';
+}
+
+if (mobileMenuToggle) {
+  mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+}
+
+if (mobileOverlay) {
+  mobileOverlay.addEventListener('click', toggleMobileMenu);
+}
 
 document.querySelectorAll('.nav button, .subnav button').forEach(button => {
   button.addEventListener('click', () => {
-    if (window.innerWidth <= 768) toggleMobileMenu();
+    if (window.innerWidth <= 768) {
+      toggleMobileMenu();
+    }
   });
 });
 
-if (mobileThemeToggle) {
-  mobileThemeToggle.addEventListener('click', () => {
-    const t = body.dataset.theme === 'dark' ? 'light' : 'dark';
-    body.dataset.theme = t;
-    localStorage.setItem('theme', t);
-    mobileThemeToggle.textContent = t === 'dark' ? '🌙' : '☀️';
-    toggle.textContent = t === 'dark' ? '🌙 / ☀️' : '☀️ / 🌙';
-  });
+function toggleTheme() {
+  const newTheme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+  body.dataset.theme = newTheme;
+  localStorage.setItem('theme', newTheme);
+  updateThemeButtons(newTheme);
 }
+
+if (mobileThemeToggle) {
+  mobileThemeToggle.addEventListener('click', toggleTheme);
+}
+
+toggle.addEventListener('click', toggleTheme);
 
 if (mobileLangToggle) {
   mobileLangToggle.addEventListener('click', () => {
@@ -121,15 +145,9 @@ if (mobileLangToggle) {
   });
 }
 
-toggle.onclick = () => {
-  const t = body.dataset.theme === 'dark' ? 'light' : 'dark';
-  body.dataset.theme = t;
-  localStorage.setItem('theme', t);
-  if (mobileThemeToggle) mobileThemeToggle.textContent = t === 'dark' ? '🌙' : '☀️';
-  toggle.textContent = t === 'dark' ? '🌙 / ☀️' : '☀️ / 🌙';
-};
-
-langToggle.onclick = () => applyLanguage(currentLang === 'ru' ? 'en' : 'ru');
+langToggle.addEventListener('click', () => {
+  applyLanguage(currentLang === 'ru' ? 'en' : 'ru');
+});
 
 function openTab(id) {
   tabs.forEach(b => b.classList.toggle('active', b.dataset.tab === id));
@@ -138,22 +156,26 @@ function openTab(id) {
   location.hash = id;
 }
 
-tabs.forEach(b => b.onclick = () => openTab(b.dataset.tab));
+tabs.forEach(b => {
+  b.addEventListener('click', () => openTab(b.dataset.tab));
+});
 
 document.querySelectorAll('.subnav button').forEach(b => {
-  b.onclick = () => {
+  b.addEventListener('click', () => {
     openTab('docs');
     document.querySelectorAll('details').forEach(d => d.open = false);
     const d = document.getElementById(b.dataset.doc);
-    d.open = true;
-    d.scrollIntoView({behavior: 'smooth', block: 'start'});
-  };
+    if (d) {
+      d.open = true;
+      d.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+  });
 });
 
 window.addEventListener('resize', () => {
-  if (window.innerWidth > 768) {
+  if (window.innerWidth > 768 && sidebar.classList.contains('mobile-visible')) {
     sidebar.classList.remove('mobile-visible');
-    mobileOverlay.classList.remove('visible');
+    if (mobileOverlay) mobileOverlay.classList.remove('visible');
     body.style.overflow = '';
   }
 });

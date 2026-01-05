@@ -21,6 +21,7 @@ font-family:Inter,system-ui;
 background:var(--bg);
 color:var(--text);
 display:flex;
+min-height:100vh;
 }
 .mobile-header{
 display:none;
@@ -28,13 +29,10 @@ position:fixed;
 top:0;left:0;right:0;
 background:var(--panel);
 border-bottom:1px solid var(--border);
-padding:16px;
+padding:12px 16px;
 z-index:1000;
-}
-.mobile-header-content{
-display:flex;
-justify-content:space-between;
 align-items:center;
+justify-content:space-between;
 }
 .mobile-header h1{
 font-size:18px;
@@ -43,33 +41,31 @@ margin:0;
 }
 .mobile-menu-btn{
 background:none;
-border:1px solid var(--border);
-border-radius:6px;
-padding:8px;
+border:none;
 color:var(--text);
 cursor:pointer;
+padding:0;
+font-size:24px;
+line-height:1;
 }
-.mobile-menu-btn svg{
-width:20px;
-height:20px;
-}
-.mobile-theme{
+.mobile-controls{
 display:flex;
 gap:8px;
+align-items:center;
 }
-.mobile-theme button{
-padding:8px 12px;
-border-radius:6px;
-border:1px solid var(--border);
+.mobile-controls button{
 background:var(--bg);
+border:1px solid var(--border);
 color:var(--text);
+padding:6px 10px;
+border-radius:6px;
 cursor:pointer;
 font-size:14px;
 }
 .mobile-overlay{
 display:none;
 position:fixed;
-top:57px;left:0;right:0;bottom:0;
+top:0;left:0;right:0;bottom:0;
 background:rgba(0,0,0,0.5);
 z-index:800;
 }
@@ -81,7 +77,7 @@ border-right:1px solid var(--border);
 padding:24px;
 position:fixed;
 height:100vh;
-overflow:auto;
+overflow-y:auto;
 }
 aside h1{
 font-size:22px;
@@ -125,6 +121,7 @@ main{
 margin-left:260px;
 padding:48px;
 max-width:1000px;
+flex:1;
 }
 section{display:none}
 section.active{display:block}
@@ -165,35 +162,32 @@ text-align:left;
 }
 th{background:var(--bg)}
 
-/* Мобильная версия */
 @media (max-width:768px){
 body{flex-direction:column}
-.mobile-header{display:block}
+.mobile-header{display:flex}
 aside{
-transform:translateX(-100%);
+top:0;
+left:-280px;
 width:280px;
-top:57px;
-height:calc(100vh - 57px);
+transition:left 0.2s;
+z-index:900;
 }
-aside.mobile-visible{transform:translateX(0)}
+aside.mobile-visible{left:0}
 main{
 margin-left:0;
-padding:80px 20px 40px;
+margin-top:56px;
+padding:20px;
 width:100%;
+max-width:none;
 }
-h2{font-size:28px}
-h3{font-size:22px;margin-top:24px}
-pre{padding:12px;font-size:14px}
-table{display:block;overflow-x:auto}
-th,td{padding:8px;font-size:14px}
-}
-@media (max-width:480px){
-.mobile-header{padding:12px}
-.mobile-header h1{font-size:16px}
-main{padding:70px 16px 32px}
 h2{font-size:24px}
 h3{font-size:20px}
-p{font-size:15px}
-pre{padding:10px;font-size:13px}
-details{padding:10px}
+pre{padding:12px}
+table{display:block;overflow-x:auto}
+}
+@media (max-width:480px){
+main{padding:16px;margin-top:52px}
+h2{font-size:22px}
+h3{font-size:18px}
+pre{padding:10px}
 }
