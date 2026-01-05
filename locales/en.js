@@ -89,8 +89,8 @@ const en = {
       released: "checks if button was just released"
     },
     color: {
-      new: "create a new color. (r - red color (0-255), g - green color (0-255), b n- blue color (0-255), a - color transparency (0-255) [default: - 255])",
-      get: "get the content of all colors or a specific one specified. (color - a pre-created color, RGBA? ‘r’|'g'|‘b’|'a' a specific color in the composition [default: returns a table with all values (r/g/b/a)])"
+      new: "create a new color. (r - red component (0-255), g - green component (0-255), b - blue component (0-255), a - alpha/transparency (0-255) [default: 255])",
+      get: "get all color components or a specific one from the specified color. (color - pre-created color, RGBA? 'r'|'g'|'b'|'a' specific component [default: returns a table with all values (r/g/b/a)])"
     },
     image: {
       load: "load image into memory (path - path to image)",
