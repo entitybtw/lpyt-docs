@@ -32,7 +32,6 @@ body {
   min-height: 100vh;
 }
 
-/* Мобильное меню */
 .mobile-header {
   display: none;
   position: fixed;
@@ -61,12 +60,11 @@ body {
   background: none;
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 8px 12px;
+  padding: 8px;
   color: var(--text);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
 }
 
 .mobile-menu-btn svg {
@@ -97,12 +95,16 @@ aside {
   position: fixed;
   height: 100vh;
   overflow: auto;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s;
   z-index: 900;
 }
 
 aside.mobile-hidden {
   transform: translateX(-100%);
+}
+
+aside.mobile-visible {
+  transform: translateX(0);
 }
 
 aside h1 {
@@ -114,7 +116,7 @@ aside h1 {
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .nav button {
@@ -128,7 +130,6 @@ aside h1 {
   cursor: pointer;
   padding: 10px 12px;
   border-radius: 6px;
-  transition: all 0.2s ease;
 }
 
 .nav button.active,
@@ -165,7 +166,6 @@ aside h1 {
   background: var(--bg);
   color: var(--text);
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .theme button:hover {
@@ -185,22 +185,10 @@ main {
 
 section {
   display: none;
-  animation: fadeIn 0.3s ease;
 }
 
 section.active {
   display: block;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 h2 {
@@ -220,7 +208,7 @@ h4 {
 }
 
 p {
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--muted);
   margin-bottom: 16px;
 }
@@ -228,18 +216,16 @@ p {
 a {
   color: var(--accent);
   text-decoration: none;
-  transition: all 0.2s ease;
 }
 
 a:hover {
   text-decoration: underline;
-  opacity: 0.8;
 }
 
 pre, code {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
 }
 
@@ -257,15 +243,10 @@ code {
 
 details {
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 14px;
   margin-bottom: 16px;
   background: var(--panel);
-  transition: all 0.2s ease;
-}
-
-details:hover {
-  border-color: var(--accent);
 }
 
 summary {
@@ -275,10 +256,6 @@ summary {
   font-size: 18px;
   padding: 4px 0;
   outline: none;
-}
-
-summary::-webkit-details-marker {
-  color: var(--accent);
 }
 
 table {
@@ -299,6 +276,21 @@ th, td {
 th {
   background: var(--bg);
   font-weight: 600;
+}
+
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 57px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 800;
+}
+
+.mobile-overlay.visible {
+  display: block;
 }
 
 @media (max-width: 1024px) {
@@ -343,18 +335,8 @@ th {
     margin-top: 24px;
   }
   
-  h4 {
-    font-size: 18px;
-  }
-  
   .nav button {
     font-size: 16px;
-    padding: 12px 16px;
-  }
-  
-  .subnav button {
-    font-size: 14px;
-    padding: 10px 16px;
   }
   
   pre {
@@ -369,7 +351,6 @@ th {
   table {
     display: block;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
   
   th, td {
@@ -396,8 +377,7 @@ th {
   }
   
   .mobile-menu-btn {
-    padding: 6px 10px;
-    font-size: 14px;
+    padding: 6px;
   }
   
   .mobile-theme button {
@@ -417,16 +397,7 @@ th {
     font-size: 20px;
   }
   
-  h4 {
-    font-size: 16px;
-  }
-  
   p {
-    font-size: 15px;
-    line-height: 1.6;
-  }
-  
-  .nav button {
     font-size: 15px;
   }
   
@@ -441,7 +412,6 @@ th {
   
   details {
     padding: 10px;
-    margin-bottom: 12px;
   }
   
   summary {
@@ -454,29 +424,6 @@ th {
   }
 }
 
-/* Overlay для мобильного меню */
-.mobile-overlay {
-  display: none;
-  position: fixed;
-  top: 57px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 800;
-  backdrop-filter: blur(2px);
-}
-
-.mobile-overlay.visible {
-  display: block;
-}
-
-/* Плавная прокрутка */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Улучшения для touch устройств */
 @media (hover: none) and (pointer: coarse) {
   .nav button,
   .theme button,
@@ -484,36 +431,5 @@ html {
   .mobile-theme button {
     min-height: 44px;
     min-width: 44px;
-  }
-  
-  a {
-    padding: 2px 0;
-  }
-  
-  summary {
-    padding: 8px 0;
-  }
-}
-
-/* Поддержка темной темы системных настроек */
-@media (prefers-color-scheme: dark) {
-  body:not([data-theme]) {
-    --bg: #0f1115;
-    --panel: #161a22;
-    --text: #e6e6eb;
-    --muted: #9aa0aa;
-    --accent: #7c7cff;
-    --border: #232837;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  body:not([data-theme]) {
-    --bg: #f6f7fb;
-    --panel: #ffffff;
-    --text: #0f1115;
-    --muted: #5a5f6a;
-    --accent: #5b5bff;
-    --border: #e3e6ef;
   }
 }
