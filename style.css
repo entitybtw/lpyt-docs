@@ -31,8 +31,13 @@ background:var(--panel);
 border-bottom:1px solid var(--border);
 padding:12px 16px;
 z-index:1000;
-align-items:center;
+height:56px;
+}
+.mobile-header-content{
+display:flex;
+width:100%;
 justify-content:space-between;
+align-items:center;
 }
 .mobile-header h1{
 font-size:18px;
@@ -46,7 +51,6 @@ color:var(--text);
 cursor:pointer;
 padding:0;
 font-size:24px;
-line-height:1;
 }
 .mobile-controls{
 display:flex;
@@ -61,15 +65,8 @@ padding:6px 10px;
 border-radius:6px;
 cursor:pointer;
 font-size:14px;
+min-width:40px;
 }
-.mobile-overlay{
-display:none;
-position:fixed;
-top:0;left:0;right:0;bottom:0;
-background:rgba(0,0,0,0.5);
-z-index:800;
-}
-.mobile-overlay.visible{display:block}
 aside{
 width:260px;
 background:var(--panel);
@@ -117,6 +114,7 @@ color:var(--text);
 cursor:pointer;
 margin-bottom:8px;
 }
+/* Контент */
 main{
 margin-left:260px;
 padding:48px;
@@ -166,13 +164,34 @@ th{background:var(--bg)}
 body{flex-direction:column}
 .mobile-header{display:flex}
 aside{
+position:fixed;
 top:0;
-left:-280px;
+left:-100%;
 width:280px;
-transition:left 0.2s;
+height:100vh;
+transition:left 0.3s ease;
 z-index:900;
 }
 aside.mobile-visible{left:0}
+.mobile-overlay{
+display:none;
+position:fixed;
+top:0;left:0;right:0;bottom:0;
+background:rgba(0,0,0,0.5);
+z-index:850;
+}
+.mobile-overlay.visible{display:block}
+.nav button{
+padding:14px 0;
+margin-bottom:8px;
+font-size:16px;
+border-bottom:1px solid var(--border);
+}
+.subnav button{
+padding:12px 0 12px 16px;
+margin-bottom:6px;
+font-size:15px;
+}
 main{
 margin-left:0;
 margin-top:56px;
@@ -180,14 +199,18 @@ padding:20px;
 width:100%;
 max-width:none;
 }
-h2{font-size:24px}
-h3{font-size:20px}
-pre{padding:12px}
+h2{font-size:28px;margin-top:8px}
+h3{font-size:22px;margin-top:24px}
+pre{padding:12px;font-size:14px}
 table{display:block;overflow-x:auto}
 }
 @media (max-width:480px){
-main{padding:16px;margin-top:52px}
-h2{font-size:22px}
-h3{font-size:18px}
-pre{padding:10px}
+.mobile-header{padding:10px}
+.mobile-header h1{font-size:16px}
+main{padding:16px}
+h2{font-size:24px}
+h3{font-size:20px}
+p{font-size:15px;line-height:1.6}
+pre{padding:10px;font-size:13px}
+details{padding:12px}
 }
