@@ -94,50 +94,11 @@ function updateFunctionComments(lang) {
   });
 }
 
-function updateDownloadModalTexts(lang) {
-  if (!i18n[lang]?.download) return;
-  
-  const texts = i18n[lang].download;
-  
-  const modalTitle = document.querySelector('.download-modal-header h3');
-  if (modalTitle && texts.title) {
-    modalTitle.textContent = texts.title;
-  }
-  
-  const offlineTitle = document.querySelector('.download-option:nth-child(1) h4');
-  const onlineTitle = document.querySelector('.download-option:nth-child(2) h4');
-  if (offlineTitle && texts.offline?.title) offlineTitle.textContent = texts.offline.title;
-  if (onlineTitle && texts.online?.title) onlineTitle.textContent = texts.online.title;
-  
-  const offlineDesc = document.querySelector('.download-option:nth-child(1) p');
-  const onlineDesc = document.querySelector('.download-option:nth-child(2) p');
-  if (offlineDesc && texts.offline?.desc) offlineDesc.textContent = texts.offline.desc;
-  if (onlineDesc && texts.online?.desc) onlineDesc.textContent = texts.online.desc;
-  
-  const githubLink = document.querySelector('.github-link span');
-  if (githubLink && texts.online?.link) githubLink.textContent = texts.online.link;
-  
-  const dateSelectOption = document.querySelector('#dateSelect option[value=""]');
-  if (dateSelectOption && texts.selectDate) {
-    dateSelectOption.textContent = texts.selectDate;
-  }
-  
-  const langOptions = document.querySelectorAll('#langSelect option');
-  if (langOptions.length >= 2 && texts.lang) {
-    langOptions[0].textContent = texts.lang.ru;
-    langOptions[1].textContent = texts.lang.en;
-  }
-  
-  const downloadBtnElement = document.getElementById('downloadBtn');
-  if (downloadBtnElement && texts.title) {
-    downloadBtnElement.textContent = texts.title;
-  }
-}
-
 function applyLanguage(lang) {
   if (!i18n[lang]) return;
   currentLang = lang;
   localStorage.setItem('lang', lang);
+  
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     const keys = key.split('.');
@@ -148,14 +109,15 @@ function applyLanguage(lang) {
     }
     if (typeof text === 'string') el.textContent = text;
   });
+  
   const langText = i18n[lang].langToggle;
   langToggle.textContent = langText;
   if (mobileLangToggle) {
     mobileLangToggle.textContent = lang === 'ru' ? 'ru' : 'en';
   }
+  
   document.documentElement.lang = lang;
   updateFunctionComments(lang);
-  updateDownloadModalTexts(lang);
   
   const currentState = getUrlState();
   currentState.lang = lang;
@@ -271,6 +233,7 @@ document.querySelectorAll('.subnav button').forEach(b => {
 function openDownloadModal() {
   downloadModal.classList.add('active');
   body.style.overflow = 'hidden';
+  updateDownloadModalTexts(currentLang);
   loadOfflineDocs();
 }
 
@@ -297,15 +260,46 @@ downloadModal.addEventListener('click', (e) => {
   }
 });
 
+function updateDownloadModalTexts(lang) {
+  if (!i18n[lang]?.download) return;
+  
+  const texts = i18n[lang].download;
+  
+  const modalTitle = document.querySelector('.download-modal-header h3');
+  if (modalTitle && texts.title) {
+    modalTitle.textContent = texts.title;
+  }
+  
+  const offlineTitle = document.querySelector('.download-option:nth-child(1) h4');
+  const onlineTitle = document.querySelector('.download-option:nth-child(2) h4');
+  if (offlineTitle && texts.offline?.title) offlineTitle.textContent = texts.offline.title;
+  if (onlineTitle && texts.online?.title) onlineTitle.textContent = texts.online.title;
+  
+  const offlineDesc = document.querySelector('.download-option:nth-child(1) p');
+  const onlineDesc = document.querySelector('.download-option:nth-child(2) p');
+  if (offlineDesc && texts.offline?.desc) offlineDesc.textContent = texts.offline.desc;
+  if (onlineDesc && texts.online?.desc) onlineDesc.textContent = texts.online.desc;
+  
+  const githubLink = document.querySelector('.github-link span');
+  if (githubLink && texts.online?.link) githubLink.textContent = texts.online.link;
+  
+  const dateSelectOption = document.querySelector('#dateSelect option[value=""]');
+  if (dateSelectOption && texts.selectDate) {
+    dateSelectOption.textContent = texts.selectDate;
+  }
+  
+  const langOptions = document.querySelectorAll('#langSelect option');
+  if (langOptions.length >= 2 && texts.lang) {
+    langOptions[0].textContent = texts.lang.ru;
+    langOptions[1].textContent = texts.lang.en;
+  }
+}
+
 async function loadOfflineDocs() {
   try {
     const response = await fetch('offline-docs/');
     if (!response.ok) {
-      const fallbackResponse = await fetch('offline-docs/manifest.json');
-      if (!fallbackResponse.ok) throw new Error('No offline docs found');
-      const fallbackData = await fallbackResponse.json();
-      processDocsData(fallbackData);
-      return;
+      throw new Error('Directory listing not available');
     }
     
     const html = await response.text();
@@ -319,11 +313,26 @@ async function loadOfflineDocs() {
       if (href && href.match(/^\d{2}-\d{2}-\d{2}\/$/)) {
         const folder = href.replace('/', '');
         const dateParts = folder.split('-');
-        const displayDate = new Date(`20${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`).toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        });
+        const day = parseInt(dateParts[0], 10);
+        const month = parseInt(dateParts[1], 10) - 1;
+        const year = 2000 + parseInt(dateParts[2], 10);
+        const date = new Date(year, month, day);
+        
+        let displayDate;
+        if (currentLang === 'ru') {
+          displayDate = date.toLocaleDateString('ru-RU', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+        } else {
+          displayDate = date.toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+        }
+        
         dates.push({
           folder: folder,
           display: displayDate
@@ -331,19 +340,24 @@ async function loadOfflineDocs() {
       }
     });
     
-    dates.sort((a, b) => b.folder.localeCompare(a.folder));
+    dates.sort((a, b) => {
+      const dateA = a.folder.split('-').reverse().join('');
+      const dateB = b.folder.split('-').reverse().join('');
+      return dateB.localeCompare(dateA);
+    });
     
-    const data = { dates: dates };
-    processDocsData(data);
+    processDocsData({ dates: dates });
     
   } catch (error) {
     console.error('Failed to load offline docs:', error);
-    offlineFiles.innerHTML = `<div style="color: var(--muted); text-align: center; padding: 20px;">${i18n[currentLang]?.download?.offline?.error || 'Оффлайн версии не найдены'}</div>`;
+    const errorText = i18n[currentLang]?.download?.offline?.error || 'Оффлайн версии не найдены';
+    offlineFiles.innerHTML = `<div style="color: var(--muted); text-align: center; padding: 20px;">${errorText}</div>`;
   }
 }
 
 function processDocsData(data) {
-  dateSelect.innerHTML = `<option value="" data-i18n="download.selectDate">${i18n[currentLang]?.download?.selectDate || 'Выберите дату'}</option>`;
+  const selectDateText = i18n[currentLang]?.download?.selectDate || 'Выберите дату';
+  dateSelect.innerHTML = `<option value="">${selectDateText}</option>`;
   
   if (data.dates && Array.isArray(data.dates)) {
     data.dates.forEach(date => {
@@ -368,7 +382,8 @@ async function updateFilesList() {
   const selectedLang = langSelect.value;
   
   if (!selectedDate) {
-    offlineFiles.innerHTML = `<div style="color: var(--muted); text-align: center; padding: 20px;">${i18n[currentLang]?.download?.selectDatePrompt || 'Выберите дату'}</div>`;
+    const promptText = i18n[currentLang]?.download?.selectDatePrompt || 'Выберите дату';
+    offlineFiles.innerHTML = `<div style="color: var(--muted); text-align: center; padding: 20px;">${promptText}</div>`;
     return;
   }
   
@@ -387,10 +402,9 @@ async function updateFilesList() {
     const zipFiles = [];
     links.forEach(link => {
       const href = link.getAttribute('href');
-      const text = link.textContent.trim();
-      if (href && (href.endsWith('.zip') || href.endsWith('.ZIP'))) {
+      if (href && !href.endsWith('/') && (href.toLowerCase().endsWith('.zip') || href.toLowerCase().endsWith('.rar') || href.toLowerCase().endsWith('.7z'))) {
         zipFiles.push({
-          name: text || href,
+          name: link.textContent.trim() || href,
           href: `offline-docs/${selectedDate}/${selectedLang}/${href}`
         });
       }
@@ -447,6 +461,12 @@ window.addEventListener('resize', () => {
     sidebar.classList.remove('mobile-visible');
     if (mobileOverlay) mobileOverlay.classList.remove('visible');
     body.style.overflow = '';
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && downloadModal.classList.contains('active')) {
+    closeDownloadModal();
   }
 });
 
