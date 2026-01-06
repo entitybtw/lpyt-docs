@@ -11,6 +11,37 @@ const sidebar = document.getElementById('sidebar');
 const mobileThemeToggle = document.getElementById('mobileThemeToggle');
 const mobileLangToggle = document.getElementById('mobileLangToggle');
 
+function getUrlState() {
+    const hash = window.location.hash.replace('#', '');
+    const params = hash.split('/');
+    const state = {};
+    
+    params.forEach(param => {
+        if (param === 'light' || param === 'dark') {
+            state.theme = param;
+        } else if (param === 'ru' || param === 'en') {
+            state.lang = param;
+        } else if (param && param !== '#') {
+            state.tab = param;
+        }
+    });
+    
+    return state;
+}
+
+function updateUrl(state) {
+    const parts = [];
+    
+    if (state.tab) parts.push(state.tab);
+    if (state.theme) parts.push(state.theme);
+    if (state.lang) parts.push(state.lang);
+    
+    const newHash = parts.length > 0 ? '#' + parts.join('/') : '#intro';
+    if (window.location.hash !== newHash) {
+        window.location.hash = newHash;
+    }
+}
+
 async function loadTranslations(lang) {
   try {
     const response = await fetch(`locales/${lang}.js`);
@@ -77,6 +108,10 @@ function applyLanguage(lang) {
   }
   document.documentElement.lang = lang;
   updateFunctionComments(lang);
+  
+  const currentState = getUrlState();
+  currentState.lang = lang;
+  updateUrl(currentState);
 }
 
 async function initTranslations() {
@@ -88,10 +123,16 @@ async function initTranslations() {
   localStorage.setItem('i18n_ru', JSON.stringify(ruTranslations));
   localStorage.setItem('i18n_en', JSON.stringify(enTranslations));
   
-  const theme = localStorage.getItem('theme') || 'dark';
+  const urlState = getUrlState();
+  
+  const theme = urlState.theme || localStorage.getItem('theme') || 'dark';
   body.dataset.theme = theme;
   updateThemeButtons(theme);
-  applyLanguage(currentLang);
+  
+  const lang = urlState.lang || localStorage.getItem('lang') || 'ru';
+  applyLanguage(lang);
+  
+  openTab(urlState.tab || 'intro');
 }
 
 function updateThemeButtons(theme) {
@@ -131,6 +172,10 @@ function toggleTheme() {
   body.dataset.theme = newTheme;
   localStorage.setItem('theme', newTheme);
   updateThemeButtons(newTheme);
+  
+  const currentState = getUrlState();
+  currentState.theme = newTheme;
+  updateUrl(currentState);
 }
 
 if (mobileThemeToggle) {
@@ -153,7 +198,10 @@ function openTab(id) {
   tabs.forEach(b => b.classList.toggle('active', b.dataset.tab === id));
   sections.forEach(s => s.classList.toggle('active', s.id === id));
   subnav.style.display = id === 'docs' ? 'block' : 'none';
-  location.hash = id;
+  
+  const currentState = getUrlState();
+  currentState.tab = id;
+  updateUrl(currentState);
 }
 
 tabs.forEach(b => {
@@ -180,12 +228,24 @@ window.addEventListener('resize', () => {
   }
 });
 
-initTranslations().then(() => {
-  const hash = location.hash.replace('#', '');
-  openTab(hash || 'intro');
-});
+initTranslations();
 
 window.addEventListener('hashchange', () => {
-  const hash = location.hash.replace('#', '');
-  if (hash) openTab(hash);
+  const urlState = getUrlState();
+  
+  if (urlState.theme && urlState.theme !== body.dataset.theme) {
+    body.dataset.theme = urlState.theme;
+    localStorage.setItem('theme', urlState.theme);
+    updateThemeButtons(urlState.theme);
+  }
+  
+  if (urlState.lang && urlState.lang !== currentLang) {
+    applyLanguage(urlState.lang);
+  }
+  
+  if (urlState.tab) {
+    openTab(urlState.tab);
+  } else {
+    openTab('intro');
+  }
 });
