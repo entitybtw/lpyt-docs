@@ -5,10 +5,12 @@
       "display": "0.4",
       "files": {
         "ru": [
-          {"name": "0.4.0.zip", "size": "12.9 KB", "url": "offline-docs/0.4/ru/0.4.0.zip"}
+          {"name": "0.4.0.zip", "size": "12.9 KB", "url": "offline-docs/0.4/ru/0.4.1.zip"},
+          {"name": "0.4.1.zip", "size": "14.1 KB", "url": "offline-docs/0.4/ru/0.4.1.zip"}
         ],
         "en": [
-          {"name": "0.4.0.zip", "size": "11,2 KB", "url": "offline-docs/0.4/en/0.4.0.zip"}
+          {"name": "0.4.0.zip", "size": "11,2 KB", "url": "offline-docs/0.4/en/0.4.0.zip"},
+          {"name": "0.4.1.zip", "size": "12,3 KB", "url": "offline-docs/0.4/en/0.4.1.zip"}
         ]
       }
     }
