@@ -8,47 +8,47 @@ on:
 jobs:
   capture-pages:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
-      
+
     - name: Pull SingleFile Docker image
       run: docker pull capsulecode/singlefile
-      
+
     - name: Tag SingleFile image
       run: docker tag capsulecode/singlefile singlefile
-      
-    - name: Capture #intro page
-      run: docker run --rm singlefile "https://luaplayeryt.ru/#intro" > intro.html
-      
-    - name: Capture #docs page
-      run: docker run --rm singlefile "https://luaplayeryt.ru/#docs" > docs.html
-      
-    - name: Capture #build page
-      run: docker run --rm singlefile "https://luaplayeryt.ru/#build" > build.html
-      
-    - name: Capture #additional page
-      run: docker run --rm singlefile "https://luaplayeryt.ru/#additional" > additional.html
-      
+
+    - name: Capture all pages
+      run: |
+        PAGES=(intro docs build additional)
+        THEMES=(dark light)
+        LOCALES=(ru en)
+
+        for page in "${PAGES[@]}"; do
+          for theme in "${THEMES[@]}"; do
+            for locale in "${LOCALES[@]}"; do
+              filename="${page}_${theme}_${locale}.html"
+              url="https://luaplayeryt.ru/#${page}/${theme}/${locale}"
+              echo "Capturing $url -> $filename"
+              docker run --rm singlefile "$url" > "$filename"
+            done
+          done
+        done
+
     - name: Verify captured files
       run: |
         ls -la *.html
-        echo "intro.html size:" $(wc -c < intro.html) "bytes"
-        echo "docs.html size:" $(wc -c < docs.html) "bytes"
-        echo "build.html size:" $(wc -c < build.html) "bytes"
-        echo "additional.html size:" $(wc -c < additional.html) "bytes"
-      
+        for f in *.html; do
+          echo "$f size:" $(wc -c < "$f") "bytes"
+        done
+
     - name: Upload HTML artifacts
       uses: actions/upload-artifact@v4
       with:
         name: luaplayeryt-pages
-        path: |
-          intro.html
-          docs.html
-          build.html
-          additional.html
+        path: "*.html"
         retention-days: 30
