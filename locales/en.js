@@ -200,7 +200,28 @@ const en = {
       stop: "stop timer (timerInstance - timer object)",
       reset: "stop and reset timer (timerInstance - timer object)",
       remove: "remove timer (timerInstance - timer object)"
-    }
+    },
+download: {
+  title: "Download",
+  selectDate: "Select date",
+  lang: {
+    ru: "Russian",
+    en: "English"
+  },
+  offline: {
+    title: "Offline version",
+    desc: "Select date and language for download:",
+    error: "Offline versions not found",
+    noFiles: "Files not found",
+    loadError: "Error loading files"
+  },
+  online: {
+    title: "GitHub repository",
+    desc: "Latest version of documentation:",
+    link: "github.com/entitybtw/lpyt-docs"
+  },
+  selectDatePrompt: "Select date to display files"
+}
   }
 };
 

@@ -200,7 +200,28 @@ const ru = {
       stop: "остановка таймера (timerInstance - объект таймера)",
       reset: "остановка и сброс таймера (timerInstance - объект таймера)",
       remove: "удаление таймера (timerInstance - объект таймера)"
-    }
+    },
+    download: {
+  title: "Скачать",
+  selectDate: "Выберите дату",
+  lang: {
+    ru: "Русский",
+    en: "English"
+  },
+  offline: {
+    title: "Оффлайн версия",
+    desc: "Выберите дату и язык для скачивания:",
+    error: "Оффлайн версии не найдены",
+    noFiles: "Файлы не найдены",
+    loadError: "Ошибка загрузки файлов"
+  },
+  online: {
+    title: "GitHub репозиторий",
+    desc: "Актуальная версия документации:",
+    link: "github.com/entitybtw/lpyt-docs"
+  },
+  selectDatePrompt: "Выберите дату для отображения файлов"
+}
   }
 };
 

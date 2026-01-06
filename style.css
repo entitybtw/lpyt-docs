@@ -90,6 +90,19 @@ cursor:pointer;
 font-size:14px;
 min-width:40px;
 }
+.download-btn {
+    background: var(--accent);
+    color: var(--panel);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.download-btn:hover {
+    opacity: 0.9;
+}
 aside{
 width:260px;
 background:var(--panel);
@@ -182,6 +195,169 @@ text-align:left;
 }
 th{background:var(--bg)}
 
+.download-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-modal.active {
+    display: flex;
+}
+
+.download-modal-content {
+    background: var(--panel);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.download-modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.download-modal-header h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.download-modal-close {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.download-modal-close:hover {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.download-modal-body {
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.download-option {
+    margin-bottom: 32px;
+}
+
+.download-option:last-child {
+    margin-bottom: 0;
+}
+
+.download-option h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.download-select-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.download-select {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.download-select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.download-files-list {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    min-height: 120px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.download-file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.2s;
+}
+
+.download-file-item:last-child {
+    border-bottom: none;
+}
+
+.download-file-item:hover {
+    background: rgba(124, 124, 255, 0.1);
+    text-decoration: none;
+}
+
+.download-file-name {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.download-file-size {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.github-link:hover {
+    background: rgba(124, 124, 255, 0.1);
+    border-color: var(--accent);
+    text-decoration: none;
+}
+
 @media (max-width:768px){
 body{flex-direction:column}
 .mobile-header{display:flex}
@@ -227,6 +403,13 @@ h2{font-size:28px;margin-top:8px}
 h3{font-size:22px;margin-top:24px}
 pre{padding:12px;font-size:14px}
 table{display:block;overflow-x:auto}
+.download-modal-content {
+    width: 95%;
+    max-height: 85vh;
+}
+.download-select-group {
+    flex-direction: column;
+}
 }
 @media (max-width:480px){
 .mobile-header{padding:10px}
@@ -237,4 +420,10 @@ h3{font-size:20px}
 p{font-size:15px;line-height:1.6}
 pre{padding:10px;font-size:13px}
 details{padding:12px}
+.download-modal-header {
+    padding: 16px;
+}
+.download-modal-body {
+    padding: 16px;
+}
 }
