@@ -1,0 +1,28 @@
+{
+  "dates": [
+    {
+      "folder": "06-01-26",
+      "display": "06-01-26",
+      "files": {
+        "ru": [
+          {"name": "v1.zip", "size": "12.9 KB", "url": "offline-docs/06-01-26/ru/v1.zip"}
+        ],
+        "en": [
+          {"name": "v1.zip", "size": "11,2 MB", "url": "offline-docs/06-01-26/en/v1.zip"}
+        ]
+      }
+    },
+    {
+      "folder": "05-01-26", 
+      "display": "5 января 2026",
+      "files": {
+        "ru": [
+          {"name": "luaplayeryt_docs_ru.zip", "size": "2.3 MB", "url": "offline-docs/05-01-26/ru/luaplayeryt_docs_ru.zip"}
+        ],
+        "en": [
+          {"name": "luaplayeryt_docs_en.zip", "size": "2.2 MB", "url": "offline-docs/05-01-26/en/luaplayeryt_docs_en.zip"}
+        ]
+      }
+    }
+  ]
+}

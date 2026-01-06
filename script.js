@@ -230,10 +230,11 @@ document.querySelectorAll('.subnav button').forEach(b => {
   });
 });
 
+let offlineDocsData = null;
+
 function openDownloadModal() {
   downloadModal.classList.add('active');
   body.style.overflow = 'hidden';
-  updateDownloadModalTexts(currentLang);
   loadOfflineDocs();
 }
 
@@ -260,94 +261,30 @@ downloadModal.addEventListener('click', (e) => {
   }
 });
 
-function updateDownloadModalTexts(lang) {
-  if (!i18n[lang]?.download) return;
-  
-  const texts = i18n[lang].download;
-  
-  const modalTitle = document.querySelector('.download-modal-header h3');
-  if (modalTitle && texts.title) {
-    modalTitle.textContent = texts.title;
-  }
-  
-  const offlineTitle = document.querySelector('.download-option:nth-child(1) h4');
-  const onlineTitle = document.querySelector('.download-option:nth-child(2) h4');
-  if (offlineTitle && texts.offline?.title) offlineTitle.textContent = texts.offline.title;
-  if (onlineTitle && texts.online?.title) onlineTitle.textContent = texts.online.title;
-  
-  const offlineDesc = document.querySelector('.download-option:nth-child(1) p');
-  const onlineDesc = document.querySelector('.download-option:nth-child(2) p');
-  if (offlineDesc && texts.offline?.desc) offlineDesc.textContent = texts.offline.desc;
-  if (onlineDesc && texts.online?.desc) onlineDesc.textContent = texts.online.desc;
-  
-  const githubLink = document.querySelector('.github-link span');
-  if (githubLink && texts.online?.link) githubLink.textContent = texts.online.link;
-  
-  const dateSelectOption = document.querySelector('#dateSelect option[value=""]');
-  if (dateSelectOption && texts.selectDate) {
-    dateSelectOption.textContent = texts.selectDate;
-  }
-  
-  const langOptions = document.querySelectorAll('#langSelect option');
-  if (langOptions.length >= 2 && texts.lang) {
-    langOptions[0].textContent = texts.lang.ru;
-    langOptions[1].textContent = texts.lang.en;
-  }
-}
-
 async function loadOfflineDocs() {
   try {
-    const response = await fetch('offline-docs/');
-    if (!response.ok) {
-      throw new Error('Directory listing not available');
+    const response = await fetch('offline-docs/manifest.json');
+    if (!response.ok) throw new Error('Manifest not found');
+    
+    offlineDocsData = await response.json();
+    
+    const selectDateText = i18n[currentLang]?.download?.selectDate || 'Выберите дату';
+    dateSelect.innerHTML = `<option value="">${selectDateText}</option>`;
+    
+    if (offlineDocsData.dates && offlineDocsData.dates.length > 0) {
+      offlineDocsData.dates.forEach(date => {
+        const option = document.createElement('option');
+        option.value = date.folder;
+        option.textContent = date.display;
+        dateSelect.appendChild(option);
+      });
+      
+      dateSelect.value = offlineDocsData.dates[0].folder;
+      updateFilesList();
+    } else {
+      const errorText = i18n[currentLang]?.download?.offline?.error || 'Оффлайн версии не найдены';
+      offlineFiles.innerHTML = `<div style="color: var(--muted); text-align: center; padding: 20px;">${errorText}</div>`;
     }
-    
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const links = Array.from(doc.querySelectorAll('a[href]'));
-    
-    const dates = [];
-    links.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href && href.match(/^\d{2}-\d{2}-\d{2}\/$/)) {
-        const folder = href.replace('/', '');
-        const dateParts = folder.split('-');
-        const day = parseInt(dateParts[0], 10);
-        const month = parseInt(dateParts[1], 10) - 1;
-        const year = 2000 + parseInt(dateParts[2], 10);
-        const date = new Date(year, month, day);
-        
-        let displayDate;
-        if (currentLang === 'ru') {
-          displayDate = date.toLocaleDateString('ru-RU', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          });
-        } else {
-          displayDate = date.toLocaleDateString('en-US', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          });
-        }
-        
-        dates.push({
-          folder: folder,
-          display: displayDate
-        });
-      }
-    });
-    
-    dates.sort((a, b) => {
-      const dateA = a.folder.split('-').reverse().join('');
-      const dateB = b.folder.split('-').reverse().join('');
-      return dateB.localeCompare(dateA);
-    });
-    
-    processDocsData({ dates: dates });
-    
   } catch (error) {
     console.error('Failed to load offline docs:', error);
     const errorText = i18n[currentLang]?.download?.offline?.error || 'Оффлайн версии не найдены';
@@ -355,29 +292,9 @@ async function loadOfflineDocs() {
   }
 }
 
-function processDocsData(data) {
-  const selectDateText = i18n[currentLang]?.download?.selectDate || 'Выберите дату';
-  dateSelect.innerHTML = `<option value="">${selectDateText}</option>`;
+function updateFilesList() {
+  if (!offlineDocsData) return;
   
-  if (data.dates && Array.isArray(data.dates)) {
-    data.dates.forEach(date => {
-      const option = document.createElement('option');
-      option.value = date.folder;
-      option.textContent = date.display;
-      dateSelect.appendChild(option);
-    });
-  }
-  
-  dateSelect.addEventListener('change', updateFilesList);
-  langSelect.addEventListener('change', updateFilesList);
-  
-  if (data.dates && data.dates.length > 0) {
-    dateSelect.value = data.dates[0].folder;
-    updateFilesList();
-  }
-}
-
-async function updateFilesList() {
   const selectedDate = dateSelect.value;
   const selectedLang = langSelect.value;
   
@@ -387,74 +304,43 @@ async function updateFilesList() {
     return;
   }
   
-  const loadingText = currentLang === 'ru' ? 'Загрузка файлов...' : 'Loading files...';
-  offlineFiles.innerHTML = `<div style="color: var(--muted); text-align: center; padding: 20px;">${loadingText}</div>`;
+  const dateData = offlineDocsData.dates.find(d => d.folder === selectedDate);
+  if (!dateData || !dateData.files || !dateData.files[selectedLang]) {
+    const noFilesText = i18n[currentLang]?.download?.noFiles || 'Файлы не найдены';
+    offlineFiles.innerHTML = `<div style="color: var(--muted); text-align: center; padding: 20px;">${noFilesText}</div>`;
+    return;
+  }
   
-  try {
-    const response = await fetch(`offline-docs/${selectedDate}/${selectedLang}/`);
-    if (!response.ok) throw new Error('Directory not found');
-    
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const links = Array.from(doc.querySelectorAll('a[href]'));
-    
-    const zipFiles = [];
-    links.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href && !href.endsWith('/') && (href.toLowerCase().endsWith('.zip') || href.toLowerCase().endsWith('.rar') || href.toLowerCase().endsWith('.7z'))) {
-        zipFiles.push({
-          name: link.textContent.trim() || href,
-          href: `offline-docs/${selectedDate}/${selectedLang}/${href}`
-        });
-      }
+  const files = dateData.files[selectedLang];
+  offlineFiles.innerHTML = '';
+  
+  if (files.length > 0) {
+    files.forEach(file => {
+      const fileItem = document.createElement('a');
+      fileItem.href = file.url;
+      fileItem.className = 'download-file-item';
+      fileItem.download = file.name;
+      
+      const fileName = document.createElement('span');
+      fileName.className = 'download-file-name';
+      fileName.textContent = file.name;
+      
+      const fileSize = document.createElement('span');
+      fileSize.className = 'download-file-size';
+      fileSize.textContent = file.size || '';
+      
+      fileItem.appendChild(fileName);
+      fileItem.appendChild(fileSize);
+      offlineFiles.appendChild(fileItem);
     });
-    
-    offlineFiles.innerHTML = '';
-    
-    if (zipFiles.length > 0) {
-      zipFiles.forEach(file => {
-        const fileItem = document.createElement('a');
-        fileItem.href = file.href;
-        fileItem.className = 'download-file-item';
-        fileItem.download = file.name;
-        
-        const fileName = document.createElement('span');
-        fileName.className = 'download-file-name';
-        fileName.textContent = file.name;
-        
-        const fileSize = document.createElement('span');
-        fileSize.className = 'download-file-size';
-        fileSize.textContent = '...';
-        
-        fetch(file.href, { method: 'HEAD' })
-          .then(headResponse => {
-            const size = headResponse.headers.get('content-length');
-            if (size) {
-              const sizeMB = (size / (1024 * 1024)).toFixed(1);
-              fileSize.textContent = `${sizeMB} MB`;
-            } else {
-              fileSize.textContent = '';
-            }
-          })
-          .catch(() => {
-            fileSize.textContent = '';
-          });
-        
-        fileItem.appendChild(fileName);
-        fileItem.appendChild(fileSize);
-        offlineFiles.appendChild(fileItem);
-      });
-    } else {
-      const noFilesText = i18n[currentLang]?.download?.noFiles || 'Файлы не найдены';
-      offlineFiles.innerHTML = `<div style="color: var(--muted); text-align: center; padding: 20px;">${noFilesText}</div>`;
-    }
-  } catch (error) {
-    console.error('Failed to load files:', error);
-    const errorText = i18n[currentLang]?.download?.loadError || 'Ошибка загрузки файлов';
-    offlineFiles.innerHTML = `<div style="color: var(--muted); text-align: center; padding: 20px;">${errorText}</div>`;
+  } else {
+    const noFilesText = i18n[currentLang]?.download?.noFiles || 'Файлы не найдены';
+    offlineFiles.innerHTML = `<div style="color: var(--muted); text-align: center; padding: 20px;">${noFilesText}</div>`;
   }
 }
+
+dateSelect.addEventListener('change', updateFilesList);
+langSelect.addEventListener('change', updateFilesList);
 
 window.addEventListener('resize', () => {
   if (window.innerWidth > 768 && sidebar.classList.contains('mobile-visible')) {
