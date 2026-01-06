@@ -4,13 +4,11 @@ const langToggle = document.getElementById('langToggle')
 const tabs = document.querySelectorAll('.nav button[data-tab]')
 const sections = document.querySelectorAll('main section')
 const subnav = document.getElementById('docsSubnav')
-
 const mobileMenuToggle = document.getElementById('mobileMenuToggle')
 const mobileOverlay = document.getElementById('mobileOverlay')
 const sidebar = document.getElementById('sidebar')
 const mobileThemeToggle = document.getElementById('mobileThemeToggle')
 const mobileLangToggle = document.getElementById('mobileLangToggle')
-
 const downloadBtn = document.getElementById('downloadBtn')
 const downloadMobileBtn = document.getElementById('downloadMobileBtn')
 const downloadModal = document.getElementById('downloadModal')
@@ -18,8 +16,7 @@ const closeModalBtn = document.querySelector('.download-modal-close')
 const versionSelect = document.getElementById('versionSelect')
 const langSelect = document.getElementById('langSelect')
 const offlineFiles = document.getElementById('offlineFiles')
-
-let currentLang = 'ru'
+let currentLang = localStorage.getItem('lang') || 'ru'
 let i18n = {}
 let offlineDocsData = null
 
@@ -53,11 +50,30 @@ async function loadTranslations(lang) {
   return window.i18n[lang]
 }
 
+function updateFunctionComments(lang) {
+  if (!i18n[lang]?.comments) return
+  const comments = i18n[lang].comments
+  Object.keys(comments).forEach(sectionId => {
+    const sectionComments = comments[sectionId]
+    Object.keys(sectionComments).forEach(funcName => {
+      const commentText = sectionComments[funcName]
+      if (!commentText) return
+      const paragraphs = document.querySelectorAll(`#${sectionId} p`)
+      paragraphs.forEach(p => {
+        const codeElement = p.querySelector('code')
+        if (codeElement && codeElement.textContent.includes(funcName + '(')) {
+          const funcCall = codeElement.textContent
+          p.innerHTML = `<code>${funcCall}</code> <span style="color:var(--muted);font-size:14px">${commentText}</span>`
+        }
+      })
+    })
+  })
+}
+
 function applyLanguage(lang, skipHash) {
   if (!i18n[lang]) return
   currentLang = lang
   localStorage.setItem('lang', lang)
-
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const path = el.dataset.i18n.split('.')
     let v = i18n[lang]
@@ -67,10 +83,9 @@ function applyLanguage(lang, skipHash) {
     }
     if (typeof v === 'string') el.textContent = v
   })
-
   document.documentElement.lang = lang
   if (mobileLangToggle) mobileLangToggle.textContent = lang
-
+  updateFunctionComments(lang)
   if (!skipHash) {
     const st = parseHash()
     st.lang = lang
@@ -170,26 +185,17 @@ function updateFilesList() {
 
 toggle.addEventListener('click', toggleTheme)
 if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme)
-
 langToggle.addEventListener('click', () => applyLanguage(currentLang === 'ru' ? 'en' : 'ru'))
 if (mobileLangToggle) mobileLangToggle.addEventListener('click', () => applyLanguage(currentLang === 'ru' ? 'en' : 'ru'))
-
 tabs.forEach(b => b.addEventListener('click', () => openTab(b.dataset.tab)))
-
 if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', toggleMobileMenu)
 if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu)
-
 if (downloadBtn) downloadBtn.addEventListener('click', openDownloadModal)
 if (downloadMobileBtn) downloadMobileBtn.addEventListener('click', openDownloadModal)
 if (closeModalBtn) closeModalBtn.addEventListener('click', closeDownloadModal)
-
-downloadModal.addEventListener('click', e => {
-  if (e.target === downloadModal) closeDownloadModal()
-})
-
+downloadModal.addEventListener('click', e => { if (e.target === downloadModal) closeDownloadModal() })
 versionSelect.addEventListener('change', updateFilesList)
 langSelect.addEventListener('change', updateFilesList)
-
 window.addEventListener('resize', () => {
   if (window.innerWidth > 768) {
     sidebar.classList.remove('mobile-visible')
