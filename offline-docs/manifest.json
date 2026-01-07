@@ -8,13 +8,15 @@
           {"name": "0.4.0.zip", "size": "12.9 KB", "url": "offline-docs/0.4/ru/0.4.1.zip"},
           {"name": "0.4.1.zip", "size": "14.1 KB", "url": "offline-docs/0.4/ru/0.4.1.zip"},
           {"name": "0.4.2.zip", "size": "14.2 KB", "url": "offline-docs/0.4/ru/0.4.2.zip"},
-          {"name": "0.4.3.zip", "size": "14.4 KB", "url": "offline-docs/0.4/ru/0.4.3.zip"}
+          {"name": "0.4.3.zip", "size": "14.4 KB", "url": "offline-docs/0.4/ru/0.4.3.zip"},
+          {"name": "0.4.4.zip", "size": "757.6 KB", "url": "offline-docs/0.4/ru/0.4.4.zip"}
         ],
         "en": [
           {"name": "0.4.0.zip", "size": "11,2 KB", "url": "offline-docs/0.4/en/0.4.0.zip"},
           {"name": "0.4.1.zip", "size": "12,3 KB", "url": "offline-docs/0.4/en/0.4.1.zip"},
           {"name": "0.4.2.zip", "size": "12,4 KB", "url": "offline-docs/0.4/en/0.4.2.zip"},
-          {"name": "0.4.3.zip", "size": "12.6 KB", "url": "offline-docs/0.4/ru/0.4.3.zip"}
+          {"name": "0.4.3.zip", "size": "12.6 KB", "url": "offline-docs/0.4/ru/0.4.3.zip"},
+          {"name": "0.4.4.zip", "size": "755.6 KB", "url": "offline-docs/0.4/ru/0.4.4.zip"}
         ]
       }
     }
