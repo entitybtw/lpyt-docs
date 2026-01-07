@@ -362,6 +362,8 @@ th{background:var(--bg)}
   position: fixed;
   left: 16px;
   bottom: 16px;
+  display: flex;
+  flex-direction: column;
   padding: 16px;
   border-radius: 12px;
   background: var(--panel);
@@ -375,7 +377,6 @@ th{background:var(--bg)}
 .back-button:hover {
   transform: translateY(-3px);
   border-color: var(--accent);
-  text-decoration: none;
 }
 
 @media (max-width:768px){
