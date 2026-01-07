@@ -23,7 +23,7 @@ const en = {
     lib1: "- intraFont is used for text rendering and provides UTF-8 support, including Cyrillic. The library allows rendering both TTF and PGF fonts. It significantly expands text handling capabilities compared to alternative libraries.",
     lib2: "- VAudio is used in the engine for audio playback and is more stable compared to aalib.",
     lib3: "- PMP is used in the engine for video playback. The format was chosen due to easier video conversion and fewer limitations compared to PMF. It is recommended to use Xvid4PSP 5 to convert videos to PMP.",
-    info2: "For conversion, the PMP AVC codec must be selected. If the video preview does not appear, installation of the K-Lite Codec Pack Standard is required.",
+    info2: "For conversion, the PMP AVC format must be selected. If the video preview does not appear, installation of the K-Lite Codec Pack Standard is required.",
     repos: "Repositories",
     mainRepo: "Main repository → ",
     forks: "Forks",
