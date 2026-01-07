@@ -14,7 +14,8 @@ const ru = {
     sound: "sound — Звук",
     pmp: "pmp — PMP видео",
     lua: "LUA — Базовые функции",
-    timer: "timer — Таймеры"
+    timer: "timer — Таймеры",
+    credits: "Справка"
   },
   intro: {
     title: "Основная информация",

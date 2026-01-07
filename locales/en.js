@@ -14,7 +14,8 @@ const en = {
     sound: "sound",
     pmp: "PMP",
     lua: "LUA",
-    timer: "timer"
+    timer: "timer",
+    credits: "Credits"
   },
   intro: {
     title: "General Information",
