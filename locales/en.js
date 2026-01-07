@@ -21,7 +21,7 @@ const en = {
     lpyt: "LuaPlayerYT is a modern open-source LuaPlayer for PSP focused on extensibility and rich functionality.",
     info1: "Compared to other Lua players for PSP, it includes many important libraries that are not available in other Lua players:",
     lib1: "- intraFont is used for text rendering and provides UTF-8 support, including Cyrillic. The library allows rendering both TTF and PGF fonts. It significantly expands text handling capabilities compared to alternative libraries.",
-    lib2: "- VAudio is used in the engine for audio playback and is more stable compared to aalib.",
+    lib2: "- vaudio is used in the engine for audio playback and is more stable compared to aalib.",
     lib3: "- PMP is used in the engine for video playback. The format was chosen due to easier video conversion and fewer limitations compared to PMF. It is recommended to use Xvid4PSP 5 to convert videos to PMP.",
     info2: "For conversion, the PMP AVC format must be selected. If the video preview does not appear, installation of the K-Lite Codec Pack Standard is required.",
     repos: "Repositories",
@@ -75,9 +75,11 @@ const en = {
     step2: "2. Extract LLS folder archive to convenient location (DOWNLOAD LINK BELOW)",
     step3: "3. Set path to extracted LLS folder in settings: File → Preferences → Settings → User tab. Search Lua.workspace.library and enter the path.",
     step4: "4. Done :D",
-    link: "Link to current LuaPlayerYT LLS archive:",
-    credits: "Credits",
-    credit1: "> Engine made by Ivan Kodilo",
+    link: "Link to current LuaPlayerYT LLS archive:"
+  },
+  credits: {
+    title: "Credits",
+    credit1: "> Engine made by Ivan kodilo",
     credit2: "> This website made by entitybtw / ",
     credit3: "> LuaPlayerYT LLS made by илья' antim0118",
     credit4: "> Main LuaPlayerYT repository owned by илья' antim0118",
