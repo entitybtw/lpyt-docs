@@ -19,7 +19,7 @@ const en = {
   intro: {
     title: "General Information",
     lpyt: "LuaPlayerYT is a modern open-source LuaPlayer for PSP focused on extensibility and rich functionality.",
-    info1: "- Compared to other Lua players for PSP, it includes many important libraries that are not available in other Lua players:",
+    info1: "Compared to other Lua players for PSP, it includes many important libraries that are not available in other Lua players:",
     lib1: "- intraFont is used for text rendering and provides UTF-8 support, including Cyrillic. The library allows rendering both TTF and PGF fonts. It significantly expands text handling capabilities compared to alternative libraries.",
     lib2: "- VAudio is used in the engine for audio playback and is more stable compared to aalib.",
     lib3: "- PMP is used in the engine for video playback. The format was chosen due to easier video conversion and fewer limitations compared to PMF. It is recommended to use Xvid4PSP 5 to convert videos to PMP.",
