@@ -3,8 +3,9 @@ const en = {
   nav: {
     intro: "General Information",
     build: "Build",
+    install: "Installation",
     docs: "Engine Documentation",
-    additional: "Additional Information",
+    projects: "Projects",
     credits: "Credits",
     buttons: "buttons",
     color: "Color",
@@ -67,11 +68,20 @@ const en = {
     timer: "timer",
     name: "Name"
   },
-  additional: {
-    title: "Additional Information",
+  projects: {
+    title: "Projects",
     projects: "Projects using LuaPlayerYT:",
     lls: "LuaPlayerYT LLS for VSCode by antim0118",
-    install: "Installation",
+  },
+  install: {
+    title: "Installation",
+    info1: "This installation guide is intended for those who are going to develop games using the Lua programming language.",
+    info2: "You can find the latest version of LuaPlayerYT in its official GitHub repository.",
+    info3: "The Lua player operates as follows:",
+    info4: "1. The main executable file, EBOOT.PBP, is launched.",
+    info5: "2. This executable then initializes and runs the primary script file, script.lua.",
+    info6: "Therefore, development should begin with the script.lua file, which acts as the entry point. From there, you can expand your code into other Lua files as your project grows.",
+    lls: "LuaPlayerYT LLS for VSCode by antim0118 installation",
     step1: "1. Install Lua extension (or sumneko Lua Language Server)",
     step2: "2. Extract LLS folder archive to convenient location (DOWNLOAD LINK BELOW)",
     step3: "3. Set path to extracted LLS folder in settings: File → Preferences → Settings → User tab. Search Lua.workspace.library and enter the path.",
